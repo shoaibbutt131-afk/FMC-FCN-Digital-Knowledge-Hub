@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FreeBook Hub</title>
+<style>
+:root{--p:#1d4ed8;--bg:#fff;--hd:#fff;--tx:#0f1b33;--onh:#0f1b33;--onp:#fff;--sf:color-mix(in srgb,var(--bg) 94%,var(--tx));--ln:color-mix(in srgb,var(--tx) 15%,transparent);--mu:color-mix(in srgb,var(--tx) 62%,var(--bg));--fd:Georgia,'Times New Roman',serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--p:#60a5fa;--bg:#0b1220;--hd:#101a2e;--tx:#e6edf7;--onh:#e6edf7;--onp:#0b1220}}
+:root[data-theme="dark"]{--p:#60a5fa;--bg:#0b1220;--hd:#101a2e;--tx:#e6edf7;--onh:#e6edf7;--onp:#0b1220}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,sans-serif}
+h1,h2,h3{font-family:var(--fd);font-weight:500;line-height:1.15;margin:0}a{color:var(--p)}
+:focus-visible{outline:3px solid #38bdf8;outline-offset:2px}
+.w{width:min(1120px,100% - 32px);margin:auto}
+header{background:var(--hd);color:var(--onh);border-bottom:1px solid var(--ln);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 0}
+.brand{display:inline-flex;align-items:center;gap:9px;font:600 1.3rem var(--fd);color:inherit;text-decoration:none;margin-right:auto}
+nav a{color:inherit;text-decoration:none;padding:6px 9px;border-radius:6px;font-size:.93rem}nav a:hover{background:color-mix(in srgb,currentColor 12%,transparent)}
+input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:6px;padding:8px 10px;width:100%}
+.btn{display:inline-block;border:1px solid var(--p);background:var(--p);color:var(--onp);border-radius:6px;padding:7px 13px;font:600 .88rem system-ui;cursor:pointer;text-decoration:none}
+.btn.g{background:transparent;color:var(--p)}.btn.r{background:transparent;color:#c0261b;border-color:#e0a49f}.btn.s{padding:4px 9px;font-size:.8rem}.btn:disabled{opacity:.5}
+.hero{padding:48px 0 34px;background:linear-gradient(color-mix(in srgb,var(--p) 8%,var(--bg)),var(--bg))}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);letter-spacing:-.02em}.hero p{color:var(--mu);max-width:48ch}
+.sh{display:flex;gap:10px;max-width:520px}.sh input{flex:1}
+.sec{padding:30px 0 4px}.sec h2{font-size:1.6rem;border-bottom:1px solid var(--ln);padding-bottom:8px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:22px 16px}
+.cv{display:block;aspect-ratio:2/3;border:1px solid var(--ln);border-radius:3px;background:var(--p);color:var(--onp);overflow:hidden}
+.cv img{width:100%;height:100%;object-fit:cover}.cv span{display:block;padding:10px;font:600 .95rem var(--fd)}
+.card h3{font-size:1rem;margin:8px 0 0}.card h3 a{color:inherit;text-decoration:none}.mu{color:var(--mu);font-size:.85rem;margin:0}
+.act{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.flt{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin:20px 0}
+.det{display:grid;grid-template-columns:minmax(180px,280px) 1fr;gap:34px;padding:34px 0}.det h1{font-size:clamp(1.8rem,4vw,2.7rem)}
+dl{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));margin:16px 0;border-top:1px solid var(--ln)}dl div{padding:9px 8px 9px 0;border-bottom:1px solid var(--ln)}dt{font-size:.75rem;color:var(--mu)}dd{margin:0;font-weight:600}
+.pn{background:var(--p);color:var(--onp);padding:28px 0;margin-top:40px}.pn form{display:flex;gap:8px;max-width:420px;margin-top:8px}
+footer{background:var(--sf);border-top:1px solid var(--ln);margin-top:48px;padding:24px 0;font-size:.88rem;color:var(--mu)}
+.box{background:var(--sf);border:1px solid var(--ln);border-radius:8px;padding:18px;margin-bottom:16px}
+.fm{display:grid;grid-template-columns:1fr 1fr;gap:12px}.fm .f{grid-column:1/-1}.fm label,.box label{font-size:.85rem;font-weight:600;display:block}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0}.tabs .btn[aria-pressed=true]{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+table{width:100%;border-collapse:collapse;font-size:.9rem}td,th{padding:7px;border-bottom:1px solid var(--ln);text-align:left}.tw{overflow-x:auto}
+.rd{display:flex;flex-direction:column;height:100vh}.rb{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:8px 12px;background:var(--hd);color:var(--onh)}
+.rb .btn{background:transparent;color:inherit;border-color:color-mix(in srgb,currentColor 35%,transparent)}.rb input{width:70px}
+.stg{flex:1;overflow:auto;display:flex;justify-content:center;padding:14px;background:color-mix(in srgb,var(--tx) 10%,var(--bg))}.stg canvas{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.msg{color:var(--mu);font-size:.9rem}.err{color:#c0261b}
+@media(max-width:700px){.det{grid-template-columns:1fr}.det .cv{max-width:220px}.flt,.fm{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.shelf{overflow-x:auto}}
+
+.hero2{position:relative;overflow:hidden;padding:56px 0 0;background:radial-gradient(900px 420px at 88% -10%,color-mix(in srgb,var(--p) 24%,transparent),transparent),linear-gradient(color-mix(in srgb,var(--p) 8%,var(--bg)),var(--bg))}
+.hbg{position:absolute;inset:0;z-index:0;pointer-events:none}.hbg .coll{display:flex;flex-wrap:wrap;filter:blur(14px) saturate(1.3);opacity:.32;transform:scale(1.15)}.hbg .coll img{width:16.66%;aspect-ratio:2/3;object-fit:cover}.hbg .himg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.4}
+.hbg::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,var(--bg))}
+.hg{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;align-items:end}
+.hr{min-width:0}.bn{display:block;margin-bottom:14px;border-radius:12px;overflow:hidden;border:1px solid var(--ln);box-shadow:0 4px 16px rgba(0,0,0,.12);background:var(--sf)}.bn img{display:block;width:100%;max-height:190px;object-fit:cover}
+.ht{padding-bottom:44px}.ht h1{font-size:clamp(2.3rem,5.5vw,4rem);letter-spacing:-.02em}.ht p{color:var(--mu);max-width:46ch;margin:14px 0 22px;font-size:1.05rem}
+.shelf{overflow:hidden;border-bottom:8px solid var(--p);min-height:230px;display:flex;align-items:flex-end;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.track{display:flex;align-items:flex-end;width:max-content;animation:run var(--d,30s) linear infinite}
+.shelf:hover .track,.shelf:focus-within .track{animation-play-state:paused}
+.track>*{display:block;flex:none;width:120px;margin-right:14px}
+@keyframes run{to{transform:translateX(-50%)}}
+.shelf .cv{box-shadow:6px 6px 0 color-mix(in srgb,var(--p) 25%,transparent)}.shelf .cv span{font-size:.72rem;padding:7px;color:#fff}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:18px 0;border-bottom:1px solid var(--ln)}.st{text-align:center}.st b{display:block;font:500 1.9rem var(--fd)}.st span{color:var(--mu);font-size:.85rem}
+.ct{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.tile{display:block;padding:18px 14px;border-radius:10px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 55%,#000));min-height:92px;transition:transform .15s}.tile:hover{transform:translateY(-3px)}.tile b{font:600 1.05rem var(--fd);display:block}.tile span{font-size:.8rem;opacity:.9}
+.hero2.mini{padding:18px 0 0;border:1px solid var(--ln);border-radius:8px;margin:10px 0}.hero2.mini .shelf{min-height:120px;border-bottom-width:5px}.hero2.mini .track>*{width:70px}
+.rq{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:720px}.rq label{font-size:.85rem;font-weight:600;display:block}
+.card{transition:transform .15s}.card:hover{transform:translateY(-3px)}
+@media(max-width:860px){.hg{grid-template-columns:1fr}.strip{grid-template-columns:repeat(2,1fr)}.rq{grid-template-columns:1fr}}
+.nw{border:1px solid var(--ln);border-radius:8px;background:var(--sf);padding:12px 16px 16px;position:relative;overflow:hidden;min-height:90px}
+.nw .it{animation:fade .5s both}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.nw h3{font-size:1.1rem;margin:2px 0 4px}.nw time{color:var(--mu);font-size:.8rem}.nw p{margin:0;white-space:pre-line;max-width:80ch;font-size:.9rem}
+.nw .ctl{display:flex;gap:6px;align-items:center;margin-top:8px;flex-wrap:wrap}.dots{display:flex;gap:6px;margin-right:8px}.dots button{width:10px;height:10px;border-radius:50%;border:0;background:var(--ln);cursor:pointer;padding:0}.dots button[aria-current=true]{background:var(--p)}
+.nw .pb{position:absolute;left:0;bottom:0;height:3px;background:var(--p);animation:fill 10s linear both}.nw:hover .pb{animation-play-state:paused}@keyframes fill{from{width:0}to{width:100%}}
+footer{text-align:left}.fw{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.vwrap{margin-left:auto;min-width:170px}.vh{font-size:.75rem;letter-spacing:.16em;font-weight:800;color:var(--tx);margin-bottom:4px}
+.vl{list-style:none;margin:0;padding:0;font-size:.88rem;font-weight:700}.vl li{display:flex;align-items:center;gap:7px;padding:3px 0;border-top:1px solid var(--ln)}.vl li:first-child{border-top:0}
+.vl i{font-style:normal;font-size:.8rem;width:16px;text-align:center}.vl span{flex:1;color:var(--tx);font-weight:700}.vl b{font-weight:800;font-size:1rem;color:var(--p)}.vl li.l b{color:#16a34a}
+.pulse{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;animation:pl 1.6s infinite}@keyframes pl{0%{box-shadow:0 0 0 0 rgba(34,197,94,.7)}70%,100%{box-shadow:0 0 0 7px rgba(34,197,94,0)}}
+.upsum{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:12px}.upsum div b{display:block;font:500 1.7rem var(--fd)}.upsum div span{color:var(--mu);font-size:.8rem}
+.upr{display:flex;justify-content:space-between;gap:4px 14px;padding:9px 0;border-top:1px solid var(--ln);text-decoration:none;color:inherit;flex-wrap:wrap}.upr:hover b{color:var(--p)}
+.sub td{background:var(--sf);font-weight:700}.tot td{font-weight:700;border-top:2px solid var(--tx)}td.n,th.n{text-align:right}
+.nl{padding:2px 14px;min-height:0}.ni{padding:9px 0;border-top:1px solid var(--ln)}.ni:first-child{border-top:0}.nw .ni p{margin:2px 0 0;font-size:.85rem;color:var(--mu)}
+.bt{padding:14px 16px;border-radius:12px;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.15)}.bt b{display:block;font-size:1.7rem;line-height:1.1;font-weight:800}.bt span{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;opacity:.95}
+.bt.a{background:linear-gradient(135deg,var(--p),color-mix(in srgb,var(--p) 55%,#000))}.bt.b2{background:linear-gradient(135deg,#0ea5e9,#1d4ed8)}.bt.c{background:linear-gradient(135deg,#f59e0b,#c2410c)}.bt.d{background:linear-gradient(135deg,#22c55e,#15803d)}
+.st.bt span{color:#fff}
+.nw.nl{padding:0;min-height:0;border-radius:14px;box-shadow:0 6px 22px rgba(0,0,0,.08)}
+.nh{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 18px;color:#fff;font-weight:700;background:linear-gradient(120deg,var(--p),color-mix(in srgb,var(--p) 50%,#000))}.nh .cnt{background:rgba(255,255,255,.22);border-radius:999px;padding:2px 11px;font-size:.78rem}
+.nb{margin:16px 18px;padding:2px 0 2px 16px;border-left:5px solid var(--p)}.nw .ni{padding:0;border:0}.ni time{display:inline-block;background:color-mix(in srgb,var(--p) 14%,transparent);color:var(--p);padding:2px 11px;border-radius:999px;font-size:.75rem;font-weight:700}.ni b{display:block;font-size:1.2rem;margin:7px 0 4px}.nw .ni p{margin:2px 0 0;font-size:.92rem;color:var(--tx)}
+.nf{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 18px;border-top:1px solid var(--ln);background:color-mix(in srgb,var(--p) 4%,var(--sf))}.dts{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center}.dt{width:9px;height:9px;border-radius:99px;border:0;padding:0;background:var(--ln);cursor:pointer;transition:width .2s}.dt[aria-current=true]{width:24px;background:var(--p)}
+.card .cv{transition:transform .25s,box-shadow .25s;transform-origin:left center}.card .cv:hover,.card .cv:focus-visible{transform:perspective(700px) rotateY(-7deg) translateY(-3px);box-shadow:8px 10px 18px rgba(0,0,0,.28)}
+.vb{position:absolute;right:6px;top:6px;padding:3px 10px;border-radius:999px;font:700 .72rem system-ui;color:#1e3a8a;background:linear-gradient(180deg,#fff,#d9e6ff);border:1px solid #fff;box-shadow:0 1px 0 #fff inset,0 -2px 0 rgba(30,58,138,.16) inset,0 3px 0 #9db6ec,0 6px 10px rgba(0,0,0,.25)}
+.hv{position:absolute;left:0;right:0;bottom:0;padding:22px 8px 10px;text-align:center;font:600 .78rem/1.55 system-ui;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.88) 45%);transform:translateY(100%);transition:transform .2s}.cv:hover .hv,.cv:focus-visible .hv{transform:none}
+.nw.nl{max-width:780px;margin:0 auto}.newsec h2{text-align:center}.nh{position:relative;justify-content:center}.nh .cnt{position:absolute;right:14px}
+.nb{border-left:0;border-top:4px solid var(--p);margin:16px 22px;padding:14px 0 2px;text-align:center}.nb .act{justify-content:center}.nw .ni p{margin:4px auto 0;max-width:62ch}
+.nh{padding:6px 16px;font-size:.88rem}.nh .cnt{font-size:.72rem;padding:1px 9px}.nb{margin:8px 20px;padding:9px 0 0;border-top-width:3px}
+.ni time{font-size:.7rem;padding:1px 9px}.ni b{font-size:1.02rem;margin:4px 0 1px}.nw .ni p{font-size:.84rem;line-height:1.4;margin-top:2px}.nw .ni .act{margin-top:6px!important}
+.nf{padding:5px 16px}.nf .btn.s{padding:3px 10px;font-size:.8rem}.nw.nl .ni img,.nw.nl .ni video{margin-top:6px!important}
+.nwrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}.nwrap .nw.nl{max-width:none;margin:0}
+.sp{border:1px solid var(--ln);border-radius:14px;overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,.08);background:var(--sf);padding-bottom:12px}
+.sph{padding:6px 16px;color:#fff;font-weight:700;font-size:.88rem;text-align:center;background:linear-gradient(120deg,var(--p),color-mix(in srgb,var(--p) 50%,#000))}
+.spl{margin:10px 14px 6px;font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}.spg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 14px}
+.sp .vwrap{margin:14px 14px 0;padding-top:10px;border-top:1px solid var(--ln);min-width:0}.sp .bt{padding:9px 4px;text-align:center;border-radius:10px}.sp .bt b{font-size:1.25rem}.sp .bt span{font-size:.6rem;letter-spacing:.04em}
+@media(max-width:860px){.nwrap{grid-template-columns:1fr}}
+.nwrap{align-items:stretch}.nwrap .nw.nl{display:flex;flex-direction:column}.nwrap .nw.nl .nb{flex:1;display:flex;flex-direction:column;justify-content:center;overflow:auto;min-height:0}.nwrap .nw.nl .nb>.ni{width:100%}
+.lb{margin-bottom:14px;padding:10px 14px 14px;border-radius:14px;background:color-mix(in srgb,var(--bg) 58%,transparent);-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);border:1px solid color-mix(in srgb,#fff 55%,transparent);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.lbh{font:700 .74rem system-ui;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:10px}.lbl{list-style:none;margin:0;padding:0}.lbl li{padding:5px 0;border-top:1px solid color-mix(in srgb,var(--ln) 70%,transparent);font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lbl li:first-child{border-top:0}.lbl a{font-weight:700;color:var(--tx);text-decoration:none}.lbl a:hover{color:var(--p);text-decoration:underline}.lbl span{color:var(--mu);font-size:.8rem}
+.lbk{position:relative;flex:1;min-width:0;display:block;aspect-ratio:2/3;border-radius:4px;overflow:hidden;background:var(--p);color:var(--onp);transform:rotateY(-14deg);transform-origin:left center;opacity:.93;box-shadow:6px 8px 14px rgba(0,0,0,.26),inset 3px 0 4px rgba(255,255,255,.35);transition:transform .25s,opacity .25s}
+.lbk::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.38),transparent 45%);pointer-events:none}.lbk:hover,.lbk:focus-visible{transform:rotateY(0) translateY(-4px);opacity:1}
+.lbk img{width:100%;height:100%;object-fit:cover;display:block}.lbk span{display:block;padding:6px;font:600 .62rem system-ui}
+.lbt{display:block;margin:0 0 14px;font:800 clamp(1.6rem,3.2vw,2.3rem)/1.2 system-ui;letter-spacing:.02em;text-decoration:none;color:#2563eb;text-shadow:1px 1px 0 rgba(0,0,0,.28),2px 2px 0 rgba(0,0,0,.24),3px 3px 0 rgba(0,0,0,.2),4px 4px 0 rgba(0,0,0,.16),5px 8px 10px rgba(0,0,0,.25);animation:lbc 3.2s ease-in-out infinite}
+@keyframes lbc{0%,100%{color:#2563eb;opacity:1}25%{color:#db2777;opacity:.6}50%{color:#f59e0b;opacity:1}75%{color:#16a34a;opacity:.6}}
+.mq{overflow:hidden;margin-bottom:14px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.mqk{display:inline-block;white-space:nowrap;padding-left:100%;animation:mqm 14s linear infinite}.mq:hover .mqk,.mq:focus-within .mqk{animation-play-state:paused}
+.mqs{display:flex;align-items:center;gap:26px;padding-right:26px;white-space:nowrap}@keyframes mqm{to{transform:translateX(-100%)}}
+.mq .lbt{display:inline-block;margin:0;font-size:1.5rem}.mqt{font-weight:700;color:var(--tx);text-decoration:none}.mqt:hover{color:var(--p);text-decoration:underline}
+@media(prefers-reduced-motion:reduce){.mq{overflow-x:auto}.mqk{animation:none!important;padding-left:0}}
+@media print{header,footer,.tabs,.noprint,.act.noprint{display:none!important}body{background:#fff;color:#000}.box{border:0;padding:0}}
+.cv{position:relative}.rk{position:absolute;left:6px;top:6px;min-width:30px;height:30px;padding:0 6px;border-radius:15px;display:grid;place-items:center;background:var(--p);color:var(--onp);font:700 .95rem system-ui;box-shadow:0 2px 6px rgba(0,0,0,.35)}.rk1{background:#d4a017;color:#1a1200}.rk2{background:#b8c0cc;color:#10151c}.rk3{background:#c27a3b;color:#1a0d00}
+
+:root{--a1:#2563eb;--a2:#16a34a;--a3:#f59e0b;--a4:#ec4899}
+.nq2{display:grid;grid-template-columns:minmax(260px,350px) minmax(0,1fr);gap:18px;align-items:start}
+.qrp{border:3px solid transparent;border-radius:14px;overflow:hidden;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(135deg,var(--a1),var(--a2),var(--a3),var(--a4)) border-box}
+.qb{background:linear-gradient(110deg,var(--a1),var(--a2) 40%,var(--a3) 70%,var(--a4));color:#fff;padding:12px 16px;display:flex;flex-direction:column;text-align:center;text-shadow:0 1px 3px rgba(0,0,0,.35)}.qb b{font:600 1.35rem var(--fd)}.qb span{font-size:.72rem;letter-spacing:.25em;font-weight:700}
+.qg{display:grid;grid-template-columns:1fr 1fr}
+.qi{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:14px 8px;border-top:4px solid var(--c);border-bottom:1px dashed var(--ln)}.qi:nth-child(odd):not(.mid){border-right:1px dashed var(--ln)}.qi.mid{grid-column:1/-1}
+.qi a{color:var(--c);font-weight:700;text-decoration:none;line-height:1.25}.qi a:hover{text-decoration:underline}.qi span{font-size:.8rem;color:var(--mu)}
+.qbtn{border:2px solid var(--c);border-radius:8px;padding:3px;background:#fff;cursor:zoom-in;line-height:0;transition:transform .15s;max-width:100%}.qbtn:hover{transform:scale(1.07)}.qbtn img,.qbtn svg{max-width:100%}
+.zoom{position:fixed;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:60;padding:16px;animation:zf .2s both}
+.zbox{background:var(--bg);color:var(--tx);border-radius:14px;padding:20px;text-align:center;border-top:8px solid var(--c);max-width:min(440px,100%);max-height:100%;overflow:auto;animation:zp .25s cubic-bezier(.2,.8,.2,1) both}.zbox h3{font-size:1.4rem}
+.zq{display:inline-block;background:#fff;padding:6px;border-radius:8px;border:2px solid var(--c);line-height:0;margin-top:8px}.zq svg{width:min(360px,70vw);height:auto}
+@keyframes zf{from{opacity:0}to{opacity:1}}@keyframes zp{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+@media(max-width:1000px){.nq2{grid-template-columns:1fr}}
+.qrp{display:flex;flex-direction:column}.qg{flex:1;min-height:0;overflow:auto;grid-auto-rows:minmax(0,1fr)}.qi{justify-content:center;min-height:0}
+.qbtn svg{width:var(--qs,72px);height:auto}.qbtn img{width:var(--qs,72px)!important}
+.qi{padding:8px 6px;gap:4px}.qi a{font-size:.84rem;white-space:nowrap}.qi span{font-size:.76rem;line-height:1.2}
+.qb{background:linear-gradient(120deg,var(--p),color-mix(in srgb,var(--p) 50%,#000));text-shadow:none}
+.qrp{border:3px solid var(--p);background:var(--bg)}
+.qi{--c:var(--p)!important}.zbox{--c:var(--p)!important}
+
+/* ---- Compact QR / News / Activity boxes ---- */
+.nq2{grid-template-columns:minmax(210px,265px) minmax(0,1fr);gap:14px}
+.nwrap{grid-template-columns:minmax(0,1fr) 235px;gap:14px}
+@media(max-width:1000px){.nq2{grid-template-columns:1fr}}
+@media(max-width:860px){.nwrap{grid-template-columns:1fr}}
+.qrp,.nw,.sp{text-transform:capitalize}
+.nw .ni p{text-transform:none}
+/* QR */
+.qrp{border-width:2px;border-radius:12px}
+.qb{padding:6px 10px}.qb b{font-size:.95rem}.qb span{font-size:.6rem;letter-spacing:.14em}
+.qi{padding:6px 4px;gap:3px}.qi a{font-size:.72rem}.qi span{font-size:.64rem}
+.qbtn{padding:2px;border-width:1.5px;border-radius:6px}
+/* News */
+.nw.nl{border-radius:12px}
+.nh{padding:4px 12px;font-size:.78rem}.nh .cnt{font-size:.64rem;padding:0 8px}
+.nb{margin:6px 14px;padding:6px 0 0}
+.ni time{font-size:.6rem;padding:1px 8px}.ni b{font-size:.86rem;margin:3px 0 1px}
+.nw .ni p{font-size:.74rem;line-height:1.35}
+.nf{padding:4px 12px}.nf .btn.s{padding:2px 8px;font-size:.7rem}.dt{width:7px;height:7px}.dt[aria-current=true]{width:18px}
+/* Activity */
+.sp{border-radius:12px;padding-bottom:8px}
+.sph{padding:4px 12px;font-size:.78rem}
+.spl{margin:7px 10px 4px;font-size:.6rem;letter-spacing:.06em;text-transform:capitalize}
+.spg{margin:0 10px;gap:6px}
+.sp .bt{padding:6px 2px;border-radius:8px}.sp .bt b{font-size:.95rem}
+.sp .bt span{font-size:.54rem;letter-spacing:0;text-transform:capitalize}
+.sp .vwrap{margin:8px 10px 0;padding-top:6px}
+.vh{font-size:.62rem;letter-spacing:.06em;text-transform:capitalize}
+.vl{font-size:.72rem}.vl b{font-size:.8rem}.vl i{font-size:.7rem}.vl li{padding:2px 0}
+
+/* ---- Compact footer ---- */
+footer{padding:14px 0 10px;font-size:.74rem;text-transform:capitalize;margin-top:32px}
+.ftg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.ftg h4{margin:0 0 5px;font-size:.8rem;color:var(--tx)}
+.ftg a,.ftg span{display:block;padding:1px 0;color:var(--mu);text-decoration:none;line-height:1.4}
+.ftg a:hover{color:var(--p);text-decoration:underline}
+.ftb{margin-top:10px;padding-top:8px;border-top:1px solid var(--ln);font-size:.68rem;text-transform:none}
+@media(max-width:640px){.ftg{grid-template-columns:1fr 1fr}}
+
+/* ---- Centered footer ---- */
+footer{text-align:center}
+.ftg{justify-items:center;text-align:center}
+.ftb{justify-content:center;text-align:center}
+
+/* ---- Header clock ---- */
+.clk{margin-left:auto;text-align:right;line-height:1.25;white-space:nowrap}
+.clk b{display:block;font-size:.85rem;font-variant-numeric:tabular-nums}
+.clk span{display:block;font-size:.68rem;color:var(--mu);text-transform:capitalize}
+@media(max-width:640px){.clk{margin-left:0;width:100%;text-align:center}.clk b,.clk span{display:inline;margin:0 6px}}
+
+/* ---- Footer bottom row: centre text + right credit ---- */
+.ftb{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
+.ftb .ftr{text-align:right;text-transform:capitalize}
+@media(max-width:640px){.ftb{grid-template-columns:1fr;text-align:center}.ftb>span{display:none}.ftb .ftr{text-align:center}}
+
+/* ---- Footer bottom row: left credit, right credit with avatar ---- */
+.ftb{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left}
+.ftb .ftr{display:flex;align-items:center;gap:6px;text-align:right}
+.ftb .ftr img{width:22px;height:22px;border-radius:50%;flex:none}
+@media(max-width:640px){.ftb{flex-direction:column;text-align:center}.ftb .ftr{justify-content:center}}
+
+.ftl{text-align:left;line-height:1.5;text-transform:none}
+@media(max-width:640px){.ftl{text-align:center}}
+
+
+
+.ftb{justify-content:flex-end}
+.ftb .ftr{text-transform:none;text-align:right}
+@media(max-width:640px){.ftb{justify-content:center}.ftb .ftr{text-align:center}}
+
+.ftb{justify-content:space-between}
+.ftb .ftl{text-align:left;text-transform:none}
+@media(max-width:640px){.ftb{justify-content:center}}
+
+
+.ring{position:relative;height:290px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.ring::after{content:"";position:absolute;left:12%;right:12%;bottom:8px;height:24px;background:radial-gradient(ellipse at center,rgba(0,0,0,.3),transparent 70%);pointer-events:none}
+.rz{position:absolute;inset:0;perspective:1000px;transform:scale(var(--z,1))}
+.rg{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;animation:rgspin var(--d,36s) linear infinite}
+.rw{position:absolute;left:-60px;top:-90px;width:120px;transform-style:preserve-3d;transform:rotateY(var(--a)) translateZ(var(--R))}
+.rbk{display:block;width:120px;animation:rbface var(--d,36s) linear infinite}
+.ring .cv{box-shadow:0 10px 22px rgba(0,0,0,.3)}.ring .cv span{font-size:.72rem;padding:7px;color:#fff}
+.ring:hover .rg,.ring:hover .rbk,.ring:focus-within .rg,.ring:focus-within .rbk{animation-play-state:paused}
+@keyframes rgspin{from{transform:translateZ(calc(var(--R)*-.6)) rotateY(0deg)}to{transform:translateZ(calc(var(--R)*-.6)) rotateY(-360deg)}}
+@keyframes rbface{from{transform:rotateY(calc(var(--a)*-1))}to{transform:rotateY(calc(360deg - var(--a)))}}
+.rst{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.rst .st{padding:10px 4px}.rst .st b{font-size:1.5rem}.rst .st span{font-size:.68rem;letter-spacing:0;white-space:nowrap}
+@media(max-width:600px){.ring{height:230px;--z:.7}.rst{grid-template-columns:repeat(2,1fr)}}
+.hero2.mini .ring{height:150px;--z:.5}
+@media(prefers-reduced-motion:reduce){.ring{height:auto;overflow-x:auto}.rz{position:static;perspective:none;transform:none}.rg{position:static;display:flex;gap:14px;width:max-content;transform:none!important;animation:none!important}.rw{position:static;transform:none!important}.rbk{animation:none!important;transform:none!important}}
+.strip2{padding:10px 0 4px}.strip2 .rst{margin-top:0;gap:12px}.strip2 .rst .st{padding:16px 6px}.strip2 .rst .st b{font-size:1.9rem}.strip2 .rst .st span{font-size:.8rem}
+body.prot{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}body.prot input,body.prot textarea,body.prot select{-webkit-user-select:text;user-select:text}body.prot img{-webkit-user-drag:none}
+@media print{body.prot>*{display:none!important}body.prot::before{content:'Printing is disabled on this website.';display:block;font:20px sans-serif;padding:24px}}
+.fresh{display:block;width:100%;max-width:560px;margin:0 auto 8px;padding:4px 0;overflow:hidden;font-weight:700;font-size:1.35rem;line-height:1.3;letter-spacing:.3px}
+.fresh a{animation:fresht 2.4s ease-in-out infinite}
+.frk{display:inline-block;white-space:nowrap;padding-left:100%;animation:frun 9s linear infinite}
+@keyframes frun{to{transform:translateX(-100%)}}
+@media(prefers-reduced-motion:reduce){.frk{display:block;padding-left:0;text-align:center}}
+@keyframes fresht{0%,100%{color:#9bd8ff;opacity:1}30%{color:#d7dbe0;opacity:1}45%{opacity:.25}55%{color:#d7dbe0;opacity:1}75%{color:#bfe6ff;opacity:1}88%{opacity:.25}}
+.hero2.mini .fresh{font-size:.9rem}
+body.hb{--p:#93c5fd;--onp:#0b1b4d;--bg:#1d4ed8;--hd:#1e3a8a;--tx:#fff;--onh:#fff;--mu:#dbeafe;--ln:rgba(255,255,255,.3);--sf:rgba(255,255,255,.13);min-height:100vh;background:linear-gradient(180deg,#0a1f5c 0%,#1d4ed8 24%,#3b82f6 50%,#1d4ed8 76%,#0a1f5c 100%);color:#fff}
+body.hb .hero2{background:none}body.hb .hbg::after{background:none}body.hb footer{background:#0a1f5c;color:#dbeafe;border-top-color:rgba(255,255,255,.25)}
+.fresh a{color:inherit;text-decoration:none}
+body.hb input::placeholder,body.hb textarea::placeholder{color:rgba(255,255,255,.78);opacity:1}
+body.hb input[type=search],body.hb input[type=text],body.hb input[type=email]{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.4)}
+body.hb .qrp,body.hb .st.bt.a,body.hb .nh,body.hb .sph,body.hb .sp .bt.a{--p:#1e3a8a}
+body.hb .qrp .qi{--p:#e0f2fe}
+body.hb .btn.g{color:#fff;border-color:rgba(255,255,255,.75);background:rgba(10,31,92,.4)}
+body.hb .btn.r{color:#ffe0dd;border-color:#ff9a90;background:rgba(127,17,17,.55)}
+body.hb .qrp{background:rgba(255,255,255,.13);border-color:#0a1f5c}
+body.hb .qrp .qi{--c:#0a1f5c!important;border-bottom:2px solid #0a1f5c}
+body.hb .qrp .qi:nth-child(odd):not(.mid){border-right:2px solid #0a1f5c}
+body.hb .qrp .qi a{color:#fff}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+const h=(t,a,...k)=>{const e=document.createElement(t);for(const[n,v]of Object.entries(a||{})){if(v==null||v===false)continue;n==='class'?e.className=v:n.startsWith('on')?e.addEventListener(n.slice(2),v):e.setAttribute(n,v===true?'':v)}k.flat(9).forEach(c=>c!=null&&c!==false&&e.append(c.nodeType?c:document.createTextNode(c)));return e};
+const dbp=new Promise((ok,no)=>{const r=indexedDB.open('freebook-hub',1);r.onupgradeneeded=()=>{r.result.createObjectStore('books',{keyPath:'id',autoIncrement:true});r.result.createObjectStore('kv')};r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
+const tx=async(s,m,f)=>{const d=await dbp;return new Promise((ok,no)=>{const t=d.transaction(s,m);const q=f(t.objectStore(s));t.oncomplete=()=>ok(q&&q.result);t.onerror=()=>no(t.error)})};
+const allBooks=()=>tx('books','readonly',s=>s.getAll()),putBook=b=>tx('books','readwrite',s=>s.put(b)),delBook=id=>tx('books','readwrite',s=>s.delete(id));
+const kdel=k=>tx('kv','readwrite',s=>s.delete(k));
+const kget=k=>tx('kv','readonly',s=>s.get(k)),kset=(k,v)=>tx('kv','readwrite',s=>s.put(v,k));
+const CATS=['Computer Science','Programming','Information Technology','Business','Education','Science','Mathematics','History','English','Urdu','Islamic Studies','Literature','Novels','General Knowledge','Self Development','Children Books'];
+const PRE={light:{p:'#1d4ed8',bg:'#ffffff',hd:'#ffffff',tx:'#0f1b33'},dark:{p:'#60a5fa',bg:'#0b1220',hd:'#101a2e',tx:'#e6edf7'},blue:{p:'#12348a',bg:'#f4f8ff',hd:'#12348a',tx:'#0f1b33'},green:{p:'#15803d',bg:'#f6fbf6',hd:'#14532d',tx:'#10251a'},purple:{p:'#6d28d9',bg:'#faf7ff',hd:'#4c1d95',tx:'#1e1233'}};
+let S={books:[],cats:CATS,set:{name:'FreeBook Hub',tag:'Read • Learn • Download',dl:true,rd:true,theme:null},A:{site:null,books:null},badmin:false,admin:false,rc:null,rs:null,tab:'books',edit:null,msg:'',hero:null,reqs:[],news:[],qrs:null,trash:[]};
+const urls=new Map();const cover=b=>{if(!b.cover)return null;if(!urls.has(b.id+':'+b.cover.size))urls.set(b.id+':'+b.cover.size,URL.createObjectURL(b.cover));return urls.get(b.id+':'+b.cover.size)};
+const sz=n=>n>1048576?(n/1048576).toFixed(1)+' MB':Math.round(n/1024)+' KB';
+const lum=x=>{const[r,g,b]=[1,3,5].map(i=>parseInt(x.slice(i,i+2),16)/255).map(c=>c<=.03928?c/12.92:((c+.055)/1.055)**2.4);return .2126*r+.7152*g+.0722*b};
+function theme(t){const r=document.documentElement;if(!t){['--p','--bg','--hd','--tx','--onh','--onp'].forEach(k=>r.style.removeProperty(k));r.removeAttribute('data-theme');return}
+ r.style.setProperty('--p',t.p);r.style.setProperty('--bg',t.bg);r.style.setProperty('--hd',t.hd);r.style.setProperty('--tx',t.tx);r.style.setProperty('--onh',lum(t.hd)>.45?'#0b1220':'#fff');r.style.setProperty('--onp',lum(t.p)>.45?'#0b1220':'#fff')}
+const hash=async(pw,salt)=>{const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);return btoa(String.fromCharCode(...new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:150000,hash:'SHA-256'},k,256))))};
+const genCode=()=>{const al='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',r=crypto.getRandomValues(new Uint8Array(16));return [0,4,8,12].map(i=>[...r.slice(i,i+4)].map(x=>al[x%al.length]).join('')).join('-')};
+const normCode=c=>String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+const newAuth=async pw=>{const salt=crypto.getRandomValues(new Uint8Array(16)),rs=crypto.getRandomValues(new Uint8Array(16)),code=genCode();return{a:{salt:[...salt],hash:await hash(pw,salt),rsalt:[...rs],rhash:await hash(normCode(code),rs)},code}};
+const chkA=async(a,pw)=>!!a&&await hash(pw,new Uint8Array(a.salt))===a.hash;
+const chkR=async(a,c)=>!!a&&!!a.rhash&&await hash(normCode(c),new Uint8Array(a.rsalt))===a.rhash;
+const validPw=p=>p.length>=10&&/[a-z]/i.test(p)&&/\d/.test(p);
+const PORTAL={site:{key:'auth',flag:'admin',title:'Site admin',route:'admin',other:'bookadmin',otherName:'Add Books'},books:{key:'bauth',flag:'badmin',title:'Books admin',route:'bookadmin',other:'admin',otherName:'Site admin'}};
+const trashList=async()=>{const ks=(await tx('kv','readonly',s=>s.getAllKeys())).filter(k=>String(k).startsWith('trash:')),r=[];for(const k of ks){const v=await kget(k);if(v)r.push(v)}return r.sort((a,b)=>(b.delAt||0)-(a.delAt||0))};
+let CUR='site';const who=()=>CUR==='site'?'Site admin':'Books admin';
+const trashBook=async(b,by)=>{await kset('trash:'+b.id,{...b,delAt:Date.now(),delBy:by});await delBook(b.id)};
+const reload=async()=>{S.books=await allBooks();S.trash=await trashList()};
+const pub=()=>S.books.filter(b=>b.status==='published');
+const sortBy=(l,s)=>[...l].sort((a,b)=>s==='alpha'?a.title.localeCompare(b.title):s==='popular'?(b.views||0)-(a.views||0)||(b.downloads||0)-(a.downloads||0)||b.id-a.id:s==='downloads'?(b.downloads||0)-(a.downloads||0):b.id-a.id);
+let route=location.hash.slice(1)||'home';
+const go=x=>{route=x;try{history.replaceState(null,'','#'+x)}catch(e){}render()};
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const modal=(msg,o={})=>new Promise(ok=>{const i=o.input!=null?h('input',{value:o.input}):null;const done=v=>{d.remove();ok(v)};const d=h('div',{style:'position:fixed;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;z-index:50;padding:16px'},h('div',{class:'box',style:'max-width:380px;width:100%;margin:0;background:var(--bg)',role:'dialog'},h('p',{},msg),i,h('div',{class:'act',style:'margin-top:12px'},h('button',{class:'btn',onclick:()=>done(i?i.value:true)},'OK'),!o.ok&&h('button',{class:'btn g',onclick:()=>done(null)},'Cancel'))));document.body.append(d);(i||d.querySelector('button')).focus()});
+
+function card(b,rank){const u=cover(b);return h('article',{class:'card'},h('a',{class:'cv',href:'#book/'+b.id,'aria-label':rank?b.title+', '+(b.views||0)+' views, '+(b.downloads||0)+' downloads':b.title},u?h('img',{src:u,alt:'Cover of '+b.title}):h('span',{},b.title),rank&&h('b',{class:'rk rk'+Math.min(rank,4),'aria-label':'Rank '+rank},String(rank)),rank&&(b.views||0)>0&&h('div',{class:'vb','aria-hidden':'true'},(b.views||0)+' views'),rank&&h('div',{class:'hv','aria-hidden':'true'},h('div',{},'👁 Viewed '+(b.views||0)+' times'),h('div',{},'⬇ Downloaded '+(b.downloads||0)+' times'))),h('h3',{},h('a',{href:'#book/'+b.id},b.title)),h('p',{class:'mu'},b.author),h('p',{class:'mu'},b.category||''),
+ h('div',{class:'act'},S.set.rd&&h('a',{class:'btn s',href:'#read/'+b.id},'Read Online'),S.set.dl&&h('button',{class:'btn s g',onclick:()=>dl(b)},'Download PDF'),h('a',{class:'btn s g',href:'#book/'+b.id},'Book Details')))}
+const totals=()=>{const p=pub(),sum=[...S.books,...S.trash].reduce((a,b)=>a+(b.downloads||0),0),cats=new Set([...S.cats,...S.books.map(b=>b.category).filter(Boolean)]);return{books:p.length,downloads:Math.max(S.dlTotal||0,sum),cats:cats.size,authors:new Set(p.map(b=>b.author).filter(Boolean)).size}};
+function countUp(el,to){if(to<2||matchMedia('(prefers-reduced-motion:reduce)').matches)return;const t0=performance.now(),f=t=>{const k=Math.min(1,(t-t0)/900);el.textContent=Math.round(to*(1-Math.pow(1-k,3))).toLocaleString();if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+function refreshTotals(){const T=totals();document.querySelectorAll('.strip [data-k],.rst [data-k]').forEach(e=>e.textContent=T[e.dataset.k].toLocaleString());const t=document.querySelector('.sp .spg .bt.d b');if(t)t.textContent=T.downloads.toLocaleString()}
+async function dl(b){track('d');track('v');S.dlTotal=totals().downloads+1;await kset('dltot',S.dlTotal);b.downloads=(b.downloads||0)+1;b.views=(b.views||0)+1;await putBook(b);refreshTotals();const a=h('a',{href:URL.createObjectURL(b.pdf),download:b.pdfName||b.title+'.pdf'});document.body.append(a);a.click();a.remove()}
+const grid=l=>l.length?h('div',{class:'grid'},l.map(b=>card(b))):h('p',{class:'msg'},'No books yet.');
+const sec=(t,l,rk)=>l.length?h('section',{class:'sec w'},h('h2',{},t),rk?h('div',{class:'grid'},l.slice(0,30).map((b,i)=>card(b,i+1))):grid(l.slice(0,8))):null;
+
+function head(){const q=h('input',{type:'search',placeholder:'Search books',style:'width:180px','aria-label':'Search'});q.addEventListener('keydown',e=>e.key==='Enter'&&go('books/'+encodeURIComponent(q.value)));
+ return h('header',{},h('div',{class:'w bar'},h('a',{class:'brand',href:'#home'},logoEl(),S.set.name),h('nav',{},h('a',{href:'#home'},'Home'),h('a',{href:'#books'},'All Books'),h('a',{href:'#cats'},'Categories'),h('a',{href:'#request'},'Request a Book'),h('a',{href:'#books///popular'},'Popular'),h('a',{href:'#books///latest'},'Latest'),h('a',{href:'#about'},'About')),q,
+  h('button',{class:'btn g s',title:'Light or dark',onclick:()=>{const r=document.documentElement;S.set.theme=null;theme(null);r.setAttribute('data-theme',lum(getComputedStyle(r).getPropertyValue('--bg').trim().length===7?getComputedStyle(r).getPropertyValue('--bg').trim():'#ffffff')<.4?'light':'dark')}},'◐'),h('div',{class:'clk','aria-live':'off'},h('b',{id:'clkT'},''),h('span',{id:'clkD'},''))))}
+const foot=()=>h('footer',{},h('div',{class:'w ftg'},
+ h('div',{},h('h4',{},'Quick Links'),h('a',{href:'#home'},'Home'),h('a',{href:'#cats'},'Series / Programs'),h('a',{href:'#books'},'All Books'),h('a',{href:'http://111.68.96.114:2083/',target:'_blank',rel:'noopener noreferrer'},'OPAC')),
+ h('div',{},h('h4',{},'Air University'),h('a',{href:'https://au.edu.pk/',target:'_blank',rel:'noopener noreferrer'},'Main Website'),h('a',{href:'https://www.digitallibrary.edu.pk/',target:'_blank',rel:'noopener noreferrer'},'HEC Digital Library'),h('a',{href:'https://webdata.au.edu.pk/Pages/Library/about_Library.aspx',target:'_blank',rel:'noopener noreferrer'},'Library Info'),h('a',{href:'https://portals.au.edu.pk/students',target:'_blank',rel:'noopener noreferrer'},'Student Portal'),h('a',{href:'#admin'},'Admin'),h('a',{href:'#bookadmin'},'Add Books')),
+ h('div',{},h('h4',{},'Contact'),h('span',{},'Librarian'),h('span',{},'M. Nasir Khan Abbasi'),h('a',{href:'mailto:librarian@au.edu.pk',style:'text-transform:none'},'librarian@au.edu.pk'))),
+ h('div',{class:'w ftb'},h('div',{class:'ftl'},'© 2026 FMC&FCN Sector E-9 Islamabad'),h('div',{class:'ftr'},'• Developed by AU Library')));
+
+const views={
+home(){const p=pub(),T=totals(),st=(k,l,c)=>{const b=h('b',{'data-k':k},T[k].toLocaleString());countUp(b,T[k]);return h('div',{class:'st bt '+c},b,h('span',{},l))};return[
+ h('section',{class:'hero2'},heroBg(),h('div',{class:'w hg'},h('div',{class:'ht'},h('h1',{},'Free books, ready to read.'),h('p',{},S.set.tag+'. Read PDF books in your browser or download them for free.'),searchBox(),h('div',{class:'act',style:'margin-top:14px'},h('a',{class:'btn',href:'#books'},'Browse all books'),h('a',{class:'btn g',href:'#request'},'Request a book'))),h('div',{class:'hr'},bannerEl(),shelfEl(6)))),
+  h('div',{class:'w strip2 hstrip'},ringStats()),
+  h('section',{class:'w sec newsec'},h('h2',{},'FMC & FCN News'),(()=>{const qp=qrPanel();return h('div',{class:qp?'nq2':''},qp,h('div',{class:'nwrap'},newsEl(),statsEl()))})()),sec('Featured books',p.filter(b=>b.featured)),sec('Recently added',sortBy(p,'latest')),sec('Most viewed',sortBy(p.filter(b=>b.views),'popular'),true),sec('Recommended',[...p].sort(()=>Math.random()-.5)),
+ !p.length&&h('div',{class:'w sec'},h('p',{class:'msg'},'The library is empty. Open Admin to add the first book.')),
+ catTiles(),h('section',{class:'w sec'},h('h2',{},'Request a book'),h('p',{class:'msg'},'Cannot find a book? Tell us and we will try to add it.'),reqForm())]},
+request(){return h('div',{class:'w',style:'padding:34px 0'},h('h1',{},'Request a book'),h('p',{class:'msg'},'Tell us which book you need. Your request goes straight to the library owner by email.'),reqForm())},
+about(){return h('div',{class:'w',style:'padding:34px 0;max-width:70ch'},h('h1',{},'About us'),h('p',{},'FreeBook Hub lists free books you can read online or download. Each book shows its license and source.'),h('h2',{},'Copyright policy'),h('p',{},'Only public domain, openly licensed or authorized books are published. If you own the rights to a book here, contact the site owner and it will be removed.'),h('h2',{},'Privacy'),h('p',{},'This site stores its data in your own browser. Nothing is sent to a server.'),h('h2',{},'Terms'),h('p',{},'Use books for personal, non-commercial use under each book\'s license.'))},
+cats(){return h('div',{class:'w',style:'padding:34px 0'},h('h1',{},'Categories'),h('div',{class:'grid',style:'margin-top:18px'},S.cats.map(c=>h('a',{href:'#books/%20/'+encodeURIComponent(c),class:'box',style:'text-decoration:none;color:inherit'},h('b',{},c),h('p',{class:'mu'},pub().filter(b=>b.category===c).length+' books')))))},
+books(a=[]){const q=decodeURIComponent(a[0]||'').trim(),cat=decodeURIComponent(a[1]||''),so=a[2]||'latest';
+ const qi=h('input',{type:'search',value:q,placeholder:'Title, author, publisher, language, ISBN, keywords'}),cs=h('select',{},h('option',{value:''},'All categories'),S.cats.map(c=>h('option',{value:c,selected:c===cat},c))),ss=h('select',{},[['latest','Latest Books'],['popular','Most Viewed'],['alpha','Alphabetical Order']].map(([v,l])=>h('option',{value:v,selected:v===so},l)));
+ const run=()=>go('books/'+encodeURIComponent(qi.value||' ')+'/'+encodeURIComponent(cs.value)+'/'+ss.value);qi.onkeydown=e=>e.key==='Enter'&&run();cs.onchange=ss.onchange=run;
+ const t=q.toLowerCase().split(/\s+/).filter(Boolean);let l=pub().filter(b=>(!cat||b.category===cat)&&t.every(w=>[b.title,b.author,b.category,b.publisher,b.language,(b.isbn||'').replace(/-/g,''),b.tags,b.description].join(' ').toLowerCase().includes(w.replace(/-/g,''))));
+ return h('div',{class:'w',style:'padding:30px 0'},h('h1',{},'All books'),h('div',{class:'flt'},qi,cs,ss),h('p',{class:'msg'},l.length+' books'),so==='popular'?h('div',{class:'grid'},sortBy(l,so).map((b,i)=>card(b,i+1))):grid(sortBy(l,so)))},
+async book([id]){const b=S.books.find(x=>x.id==id&&(x.status==='published'||S.admin||S.badmin));if(!b)return h('div',{class:'w sec'},h('p',{},'This book is not available. ',h('a',{href:'#books'},'Browse books')));
+ track('v');b.views++;putBook(b);const u=cover(b),rel=pub().filter(x=>x.id!==b.id&&x.category===b.category).slice(0,6);
+ return[h('div',{class:'w det'},h('div',{},h('div',{class:'cv'},u?h('img',{src:u,alt:'Cover of '+b.title}):h('span',{},b.title))),h('div',{},h('h1',{},b.title),h('p',{class:'mu'},'by '+b.author),
+  h('div',{class:'act'},S.set.rd&&h('a',{class:'btn',href:'#read/'+b.id},'Read Online'),S.set.dl&&h('button',{class:'btn g',onclick:()=>dl(b)},'Download PDF')),
+  h('dl',{},[['Publisher',b.publisher],['Year',b.year],['Language',b.language],['Pages',b.pages],['Category',b.category],['ISBN',b.isbn],['Views',b.views||0],['Reads',b.reads||0]].filter(x=>x[1]||x[1]===0).map(([k,v])=>h('div',{},h('dt',{},k),h('dd',{},String(v))))),
+  b.description&&h('p',{style:'white-space:pre-line;max-width:65ch'},b.description),h('p',{class:'mu'},'License: '+(b.license||'Not stated')+'. ',b.source&&/^https?:/.test(b.source)&&h('a',{href:b.source,target:'_blank',rel:'noopener noreferrer'},'Original source')))),sec('Related books',rel)]},
+async read([id]){const b=S.books.find(x=>x.id==id&&(x.status==='published'||S.admin||S.badmin));const st=h('div',{class:'msg',style:'padding:6px 12px'},'Loading…');
+ if(!b||!S.set.rd)return h('div',{class:'w sec'},h('p',{},'Online reading is not available for this book. ',h('a',{href:'#books'},'Back')));
+ track('r');track('v');b.reads=(b.reads||0)+1;b.views=(b.views||0)+1;putBook(b);const cv=h('canvas'),stg=h('div',{class:'stg'},cv),pg=h('input',{type:'number',min:1,value:1,'aria-label':'Page'}),tot=h('span'),fi=h('input',{placeholder:'Find',style:'width:120px'});let pdf,n=1,z=0,busy=0;
+ const draw=async()=>{if(busy)return;busy=1;const p=await pdf.getPage(n),v0=p.getViewport({scale:1}),sc=z||Math.max((stg.clientWidth-30)/v0.width,.3),v=p.getViewport({scale:sc}),d=devicePixelRatio||1;cv.width=v.width*d;cv.height=v.height*d;cv.style.width=v.width+'px';cv.style.height=v.height+'px';await p.render({canvasContext:cv.getContext('2d'),viewport:v,transform:d!==1?[d,0,0,d,0,0]:null}).promise;pg.value=n;z=z;busy=0;stg.scrollTop=0};
+ const to=x=>{n=Math.min(Math.max(+x||1,1),pdf.numPages);draw()},zm=f=>{z=Math.min(Math.max((z||cv.clientWidth/(cv.width/(devicePixelRatio||1))||1)*f,.3),4);draw()};
+ const el=h('div',{class:'rd'},h('div',{class:'rb'},h('a',{class:'btn s',href:'#book/'+b.id},'Back'),h('b',{style:'flex:1;min-width:120px;font-family:var(--fd)'},b.title),h('button',{class:'btn s',onclick:()=>to(n-1)},'Prev'),pg,tot,h('button',{class:'btn s',onclick:()=>to(n+1)},'Next'),h('button',{class:'btn s',onclick:()=>zm(.8)},'−'),h('button',{class:'btn s',onclick:()=>zm(1.25)},'+'),h('button',{class:'btn s',onclick:()=>{z=0;draw()}},'Fit'),fi,h('button',{class:'btn s',onclick:async()=>{const t=fi.value.toLowerCase();if(!t)return;for(let i=1;i<=pdf.numPages;i++){const k=(n-1+i)%pdf.numPages+1,c=await(await pdf.getPage(k)).getTextContent();if(c.items.map(x=>x.str).join(' ').toLowerCase().includes(t)){st.textContent='Found on page '+k;return to(k)}}st.textContent='No match (scanned PDFs have no searchable text).'}},'Find'),h('button',{class:'btn s',onclick:()=>document.fullscreenElement?document.exitFullscreen():el.requestFullscreen?.()},'Full screen')),stg,st);
+ pg.onchange=()=>to(pg.value);
+ try{pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';pdf=await pdfjsLib.getDocument({data:await b.pdf.arrayBuffer()}).promise;tot.textContent='of '+pdf.numPages;st.textContent='';await draw()}catch(e){st.textContent='This PDF could not be opened: '+e.message;st.className='msg err'}return el},
+admin(){return gate('site')},
+bookadmin(){return gate('books')}
+};
+const showpw=(...ins)=>h('label',{style:'font-weight:400;display:flex;gap:6px;align-items:center;margin:8px 0'},h('input',{type:'checkbox',style:'width:auto',onchange:e=>ins.forEach(i=>i.type=e.target.checked?'text':'password')}),'Show password');
+function gate(k){const P=PORTAL[k];if(S.rc&&S.rc.kind===k)return recoveryView(k);if(!S.A[k])return setup(k);if(!S[P.flag])return login(k);return panel(k)}
+function crossLink(k){const P=PORTAL[k];return h('p',{class:'mu',style:'margin-top:14px'},'Looking for the other portal? ',h('a',{href:'#'+P.other},P.otherName+' sign in'))}
+function recoveryView(k){const P=PORTAL[k],c=S.rc.code;return h('div',{class:'box',style:'max-width:460px;margin:34px auto'},h('h1',{},'Save your recovery code'),h('p',{class:'mu'},'This code is the only way to reset the '+P.title+' password if you forget it. It is shown just once. Write it down and keep it safe.'),h('p',{style:'font:700 22px/1.4 monospace;letter-spacing:1px;padding:14px;border:1px dashed var(--ln);border-radius:8px;text-align:center;user-select:all'},c),h('button',{class:'btn',onclick:()=>{S.rc=null;S[P.flag]=true;S.tab=null;render()}},'I saved it, continue'))}
+function setup(k){const P=PORTAL[k],p=h('input',{type:'password',minlength:10,required:true}),m=h('p',{class:'err'}),f=h('form',{class:'box',style:'max-width:420px;margin:34px auto'},h('h1',{},'Create '+P.title+' password'),h('p',{class:'mu'},'First visit: choose a password for the '+P.title+' portal (10+ characters, letters and numbers). It is saved only in this browser. You will also get a recovery code.'),h('label',{},'Password',p),showpw(p),h('button',{class:'btn'},'Create password'),m,crossLink(k));
+ f.onsubmit=async e=>{e.preventDefault();if(!validPw(p.value))return m.textContent='Use 10+ characters with letters and numbers.';try{const r=await newAuth(p.value);await kset(P.key,r.a);S.A[k]=r.a;S.rc={kind:k,code:r.code};render()}catch(x){m.textContent='Could not save the password: '+x.message}};return f}
+function login(k){const P=PORTAL[k];if(S.rs===k)return resetView(k);const p=h('input',{type:'password',required:true}),m=h('p',{class:'err'}),f=h('form',{class:'box',style:'max-width:420px;margin:34px auto'},h('h1',{},P.title+' sign in'),h('label',{},'Password',p),showpw(p),h('div',{class:'act'},h('button',{class:'btn'},'Sign in'),h('button',{type:'button',class:'btn g',onclick:()=>{S.rs=k;render()}},'Forgot password?')),m,h('p',{class:'mu'},'The password is stored in the browser where you created it. A different browser or a different copy of this page has its own password.'),crossLink(k));
+ f.onsubmit=async e=>{e.preventDefault();try{if(await chkA(S.A[k],p.value)){S[P.flag]=true;S.tab=null;render()}else m.textContent='Wrong password.'}catch(x){m.textContent='Sign-in problem: '+x.message}};return f}
+function resetView(k){const P=PORTAL[k],c=h('input',{required:true,placeholder:'XXXX-XXXX-XXXX-XXXX'}),np=h('input',{type:'password',minlength:10,required:true}),m=h('p',{class:'err'}),back=h('button',{type:'button',class:'btn g',onclick:()=>{S.rs=null;render()}},'Back to sign in');
+ if(!S.A[k].rhash)return h('div',{class:'box',style:'max-width:420px;margin:34px auto'},h('h1',{},'Reset password'),h('p',{class:'mu'},'This password was created before recovery codes existed, so it cannot be reset from here. Sign in with the current password, then use Change password to get a recovery code.'),back);
+ const f=h('form',{class:'box',style:'max-width:420px;margin:34px auto'},h('h1',{},'Reset '+P.title+' password'),h('p',{class:'mu'},'Enter the recovery code you saved when you created the password, then choose a new password.'),h('label',{},'Recovery code',c),h('label',{},'New password (10+ characters, letters and numbers)',np),showpw(np),h('div',{class:'act'},h('button',{class:'btn'},'Reset password'),back),m);
+ f.onsubmit=async e=>{e.preventDefault();if(!validPw(np.value))return m.textContent='Use 10+ characters with letters and numbers.';try{if(!await chkR(S.A[k],c.value))return m.textContent='That recovery code is not correct.';const r=await newAuth(np.value);await kset(P.key,r.a);S.A[k]=r.a;S.rs=null;S.rc={kind:k,code:r.code};render()}catch(x){m.textContent='Reset problem: '+x.message}};return f}
+function pwBox(k){const P=PORTAL[k],c=h('input',{type:'password'}),np=h('input',{type:'password',minlength:10}),m=h('p',{class:'msg'}),out=h('div',{});
+ return h('div',{class:'box'},h('h3',{},'Change '+P.title+' password'),h('label',{},'Current password',c),h('label',{},'New password (10+ characters, letters and numbers)',np),showpw(c,np),h('br'),h('button',{class:'btn',onclick:async()=>{if(!(await chkA(S.A[k],c.value)))return m.textContent='Current password is wrong.';if(!validPw(np.value))return m.textContent='Use 10+ characters with letters and numbers.';const r=await newAuth(np.value);await kset(P.key,r.a);S.A[k]=r.a;c.value='';np.value='';m.textContent='Password changed. Your new recovery code is shown below. The old one no longer works.';out.replaceChildren(h('p',{style:'font:700 20px/1.4 monospace;letter-spacing:1px;padding:12px;border:1px dashed var(--ln);border-radius:8px;text-align:center;user-select:all'},r.code),h('p',{class:'mu'},'Write this code down. It is shown only once.'))}},'Change password'),m,out)}
+const save=async()=>{await kset('set',S.set);await reload();render()};
+function panel(k){CUR=k;const P=PORTAL[k],isB=k==='books';
+ const T=isB?[['books','Books'],['upload','Upload PDFs'],['form','Add book'],['edit','Edit / Metadata'],['del','Delete'],['pw','Password']]:[['books','Books'],['upload','Upload PDFs'],['form','Add book'],['edit','Edit / Metadata'],['del','Delete'],['trash','Recycle Bin ('+S.trash.length+')'],['rep','Reports'],['bk','Backup'],['news','Upload News'],['qr','QR Codes'],['req','Requests ('+S.reqs.length+')'],['cats','Categories'],['hdr','Logo & Header'],['theme','Theme'],['set','Settings']];
+ if(!T.some(t=>t[0]===S.tab)){S.tab=T[0][0];S.edit=null}
+ const tabs=h('div',{class:'tabs'},T.map(([t,l])=>h('button',{class:'btn g','aria-pressed':S.tab===t,onclick:()=>{S.tab=t;S.edit=null;render()}},l)),h('button',{class:'btn r',onclick:()=>{S[P.flag]=false;S.tab=null;S.edit=null;render()}},'Logout'));
+ const tot=S.books.reduce((a,b)=>a+(b.downloads||0),0),stats=h('p',{class:'msg'},`${S.books.length} books · ${pub().length} published · ${S.books.length-pub().length} drafts · ${S.books.reduce((a,b)=>a+(b.views||0),0)} views · ${S.books.reduce((a,b)=>a+(b.reads||0),0)} reads · ${totals().downloads} downloads · ${totals().cats} categories · ${new Set(S.books.map(b=>b.author)).size} authors`);
+ const body={books:aBooks,upload:aUpload,form:aForm,edit:aEdit,del:aDelete,trash:aTrash,pw:()=>pwBox('books'),news:aNews,qr:aQr,req:aReq,rep:aRep,bk:aBackup,hdr:()=>h('div',{},aLogo(),aHdr(),aBnr()),cats:aCats,theme:aTheme,set:aSet}[S.tab]();
+ const quick=h('div',{class:'act',style:'margin:10px 0'},h('button',{class:'btn',onclick:()=>{S.tab='form';S.edit=null;render()}},'+ Add book'),h('button',{class:'btn',onclick:()=>{S.tab='upload';S.edit=null;render()}},'Upload PDFs'),h('button',{class:'btn g',onclick:()=>{S.tab='edit';S.edit=null;render()}},'Edit books'),h('button',{class:'btn g',onclick:()=>{S.tab='del';S.edit=null;render()}},'Delete books'));
+ return h('div',{class:'w',style:'padding:26px 0'},h('h1',{},isB?'Books admin dashboard':'Site admin dashboard'),stats,isB?null:safetyBar(),quick,tabs,body,crossLink(k))}
+function safetyBar(){const p=h('span',{class:'msg',role:'status'});kget('lastbk').then(v=>{p.textContent='Backup: '+(v?'last made '+new Date(v).toLocaleString():'none made yet')+(S.trash.length?' · '+S.trash.length+' deleted book(s) are safe in the Recycle Bin.':'')});
+ return h('div',{class:'act',style:'align-items:center;margin:6px 0'},p,h('button',{class:'btn s',onclick:()=>{S.tab='bk';render()}},'Backup now'),S.trash.length?h('button',{class:'btn s g',onclick:()=>{S.tab='trash';render()}},'Open Recycle Bin'):null)}
+function aTrash(){const m=h('p',{class:'msg',role:'status'}),L=S.trash,dlr=r=>{const a=h('a',{href:URL.createObjectURL(r.pdf),download:r.pdfName||(r.title||'book')+'.pdf'});document.body.append(a);a.click();a.remove()};
+ const restore=async r=>{const b={...r};delete b.delAt;delete b.delBy;await putBook(b);await kdel('trash:'+r.id);await save()};
+ const purge=async r=>{if(await modal('Permanently delete "'+r.title+'"? It cannot be recovered unless you have a backup file.')){await kdel('trash:'+r.id);await reload();render()}};
+ return h('div',{class:'box tw'},h('h3',{},'Recycle Bin ('+L.length+')'),h('p',{class:'msg'},'Books deleted from Books admin or Site admin are kept here with their PDF and cover. Restore them any time, or delete them permanently. Only Site admin can empty the bin. The bin is also included in every backup.'),
+  h('div',{class:'act',style:'margin-bottom:10px'},h('button',{class:'btn',onclick:async()=>{if(!L.length)return modal('The Recycle Bin is empty.',{ok:true});if(await modal('Restore all '+L.length+' book(s)?')){for(const r of L)await restore(r)}}},'Restore all'),h('button',{class:'btn r',onclick:async()=>{if(!L.length)return modal('The Recycle Bin is empty.',{ok:true});if(await modal('Permanently delete all '+L.length+' book(s) in the bin? Make a backup first if unsure.')){for(const r of L)await kdel('trash:'+r.id);await reload();render()}}},'Empty Recycle Bin'),h('button',{class:'btn g',onclick:()=>{S.tab='bk';render()}},'Go to Backup')),
+  L.length?h('table',{},h('thead',{},h('tr',{},['Book','Deleted by','Deleted on','Actions'].map(x=>h('th',{},x)))),h('tbody',{},L.map(r=>h('tr',{},h('td',{},h('b',{},r.title),h('br'),h('span',{class:'mu'},(r.author||'')+(r.size?' · '+sz(r.size):''))),h('td',{},r.delBy||'-'),h('td',{},r.delAt?new Date(r.delAt).toLocaleString():'-'),h('td',{},h('div',{class:'act'},h('button',{class:'btn s',onclick:()=>restore(r)},'Restore'),r.pdf&&h('button',{class:'btn s g',onclick:()=>dlr(r)},'Download PDF'),h('button',{class:'btn s r',onclick:()=>purge(r)},'Delete forever'))))))):h('p',{class:'msg'},'The Recycle Bin is empty.'),m)}
+function aRep(){const sp=h('p',{class:'msg'});try{navigator.storage.estimate().then(e=>{sp.textContent='Browser storage used: '+sz(e.usage)+' of about '+sz(e.quota)+' available.'})}catch(e){}const mode=S.rep||'cat',bs=sortBy(S.books,'latest'),n=x=>x||0,sum=l=>({b:l.length,v:l.reduce((a,x)=>a+n(x.views),0),r:l.reduce((a,x)=>a+n(x.reads),0),d:l.reduce((a,x)=>a+n(x.downloads),0)});
+ const names=[...S.cats,...new Set(bs.map(b=>b.category).filter(c=>c&&!S.cats.includes(c)))],groups=[...names,''].map(c=>[c||'Uncategorized',bs.filter(b=>(b.category||'')===c)]).filter(g=>g[1].length),sel=S.repc||'',G=sel?groups.filter(g=>g[0]===sel):groups,BL=G.flatMap(g=>g[1]),T=sum(BL),AT=sum(bs);
+ const rows=[['Subject / Category','Title','Author','Status','Views','Reads','Downloads']];
+ G.forEach(([c,l])=>l.forEach(b=>rows.push([c,b.title,b.author,b.status,n(b.views),n(b.reads),n(b.downloads)])));
+ const csv=()=>{const q=x=>'"'+String(x).replace(/"/g,'""')+'"',u=URL.createObjectURL(new Blob(['\ufeff'+rows.map(r=>r.map(q).join(',')).join('\r\n')],{type:'text/csv'})),a=h('a',{href:u,download:'books-report-'+new Date().toISOString().slice(0,10)+'.csv'});document.body.append(a);a.click();a.remove()};
+ const th=(l)=>h('thead',{},h('tr',{},l.map((x,i)=>h('th',{class:i>=l.length-3?'n':''},x))));
+ let tbl;
+ if(mode==='cat'){const tr=[];G.forEach(([c,l])=>{const t=sum(l);tr.push(h('tr',{class:'sub'},h('td',{colspan:2},c+' ('+t.b+' of '+AT.b+' total books)'),h('td',{class:'n'},t.v),h('td',{class:'n'},t.r),h('td',{class:'n'},t.d)));l.forEach(b=>tr.push(h('tr',{},h('td',{style:'padding-left:22px'},b.title,h('br'),h('span',{class:'mu'},b.status!=='published'?'draft':'')),h('td',{},b.author),h('td',{class:'n'},n(b.views)),h('td',{class:'n'},n(b.reads)),h('td',{class:'n'},n(b.downloads)))))});
+  tr.push(h('tr',{class:'tot'},h('td',{colspan:2},'TOTAL ('+T.b+' books of '+AT.b+' total books)'),h('td',{class:'n'},T.v),h('td',{class:'n'},T.r),h('td',{class:'n'},T.d)));
+  tbl=h('table',{},th(['Subject / Book','Author','Views','Reads','Downloads']),h('tbody',{},tr))}
+ else{tbl=h('table',{},th(['#','Title','Author','Category','Status','Views','Reads','Downloads']),h('tbody',{},BL.map((b,i)=>h('tr',{},h('td',{},i+1),h('td',{},b.title),h('td',{},b.author),h('td',{},b.category||'-'),h('td',{},b.status),h('td',{class:'n'},n(b.views)),h('td',{class:'n'},n(b.reads)),h('td',{class:'n'},n(b.downloads)))),h('tr',{class:'tot'},h('td',{colspan:5},'TOTAL ('+T.b+' books of '+AT.b+' total books)'),h('td',{class:'n'},T.v),h('td',{class:'n'},T.r),h('td',{class:'n'},T.d))))}
+ const ss=h('select',{class:'noprint',onchange:()=>{S.repc=ss.value;render()}},h('option',{value:''},'All subjects ('+AT.b+' books)'),...groups.map(([c,l])=>h('option',{value:c,selected:c===sel},c+' ('+l.length+')')));const mb=(k,l)=>h('button',{class:'btn g s','aria-pressed':mode===k,onclick:()=>{S.rep=k;render()}},l);
+ return h('div',{class:'box tw'},h('h3',{},'Books report'),sp,h('p',{},h('b',{},'Total books in library: '+AT.b),sel?' · '+sel+': '+T.b+' books':' · showing all subjects'),h('p',{class:'msg'},'Report date: '+new Date().toLocaleDateString()+'. Views = book page opened, Reads = opened in online reader.'),
+  h('div',{class:'act noprint tabs',style:'margin-top:0'},ss,mb('cat','Category-wise (Subject)'),mb('simple','Simple list'),h('button',{class:'btn s',onclick:csv},'Download CSV'),h('button',{class:'btn s',onclick:()=>print()},'Print / Save PDF')),
+  books_empty(BL),tbl)}
+const books_empty=l=>l.length?null:h('p',{class:'msg'},'No books yet.');
+function aHdr(){const hf=h('input',{type:'file',accept:'image/jpeg,image/png,image/webp'});
+ hf.onchange=async()=>{const x=hf.files[0];if(!x)return;if(x.size>8e6)return modal('The picture is larger than 8 MB.',{ok:true});await kset('hero',x);S.hero=x;heroUrlRef.u=null;S.set.hero='image';await kset('set',S.set);render()};
+ return h('div',{class:'box'},h('h3',{},'Front page header image'),h('p',{class:'msg'},'This picture is shown behind the heading on the front page. Use a wide picture (JPG, PNG or WebP, max 8 MB).'),
+  S.hero&&heroUrl()&&h('div',{style:'height:140px;border-radius:8px;margin:10px 0;background:center/cover url('+heroUrl()+');border:1px solid var(--ln)'}),
+  h('label',{},S.hero?'Replace header image':'Upload header image',hf),
+  S.hero&&h('button',{class:'btn s r',style:'margin-top:8px',onclick:async()=>{await kdel('hero');S.hero=null;heroUrlRef.u=null;S.set.hero='shelf';await kset('set',S.set);render()}},'Remove header image'))}
+const logoRef={u:null};
+function logoEl(){if(!S.logo)return null;const u=logoRef.u||(logoRef.u=URL.createObjectURL(S.logo));return h('img',{src:u,alt:'',style:'height:36px;width:auto;max-width:90px;object-fit:contain;display:block'})}
+function aLogo(){const lf=h('input',{type:'file',accept:'image/png,image/jpeg,image/webp,image/svg+xml'});
+ lf.onchange=async()=>{const x=lf.files[0];if(!x)return;if(x.size>2e6)return modal('The logo is larger than 2 MB.',{ok:true});await kset('logo',x);S.logo=x;logoRef.u=null;render()};
+ return h('div',{class:'box'},h('h3',{},'Logo'),h('p',{class:'msg'},'Shown on the left side of the top bar, before the site name.'),
+  S.logo&&h('div',{style:'margin:10px 0'},h('img',{src:logoRef.u||(logoRef.u=URL.createObjectURL(S.logo)),alt:'Current logo',style:'max-height:56px;max-width:160px;object-fit:contain;display:block'})),
+  h('label',{},S.logo?'Replace logo (PNG, JPG, WebP, SVG; max 2 MB)':'Upload logo (PNG, JPG, WebP, SVG; max 2 MB)',lf),
+  S.logo&&h('button',{class:'btn s r',style:'margin-top:8px',onclick:async()=>{await kdel('logo');S.logo=null;logoRef.u=null;render()}},'Remove logo'))}
+const bannerRef={u:null};
+function bannerEl(){if(!S.banner)return null;const u=bannerRef.u||(bannerRef.u=URL.createObjectURL(S.banner)),img=h('img',{src:u,alt:'Banner'}),l=S.set.blink;
+ return l&&/^https?:\/\//i.test(l)?h('a',{class:'bn',href:l,target:'_blank',rel:'noopener noreferrer'},img):h('div',{class:'bn'},img)}
+function aBnr(){const bf=h('input',{type:'file',accept:'image/jpeg,image/png,image/webp,image/gif'}),lk=h('input',{type:'url',placeholder:'https://example.com',value:S.set.blink||''}),m=h('p',{class:'msg',role:'status'});
+ bf.onchange=async()=>{const x=bf.files[0];if(!x)return;if(x.size>5e6)return modal('The picture is larger than 5 MB.',{ok:true});await kset('banner',x);S.banner=x;bannerRef.u=null;render()};
+ return h('div',{class:'box'},h('h3',{},'Front page banner'),h('p',{class:'msg'},'A picture shown on the front page next to "Free books, ready to read.", right above the running books. Add a link and the picture opens it when clicked.'),
+  S.banner&&h('img',{src:bannerRef.u||(bannerRef.u=URL.createObjectURL(S.banner)),alt:'Current banner',style:'max-width:100%;max-height:140px;border-radius:8px;margin:10px 0;display:block;border:1px solid var(--ln)'}),
+  h('label',{},S.banner?'Replace banner picture (JPG, PNG, WebP; max 5 MB)':'Upload banner picture (JPG, PNG, WebP; max 5 MB)',bf),
+  h('label',{},'Link (optional)',lk),
+  h('div',{class:'act',style:'margin-top:10px'},h('button',{class:'btn s',onclick:async()=>{const v=lk.value.trim();if(v&&!/^https?:\/\//i.test(v))return m.textContent='The link must start with http:// or https://';S.set.blink=v;await kset('set',S.set);m.textContent='Link saved.';render()}},'Save link'),
+   S.banner&&h('button',{class:'btn s r',onclick:async()=>{await kdel('banner');S.banner=null;bannerRef.u=null;S.set.blink='';await kset('set',S.set);render()}},'Remove banner')),m)}
+const BK_MAGIC='FBHBK1';
+async function bkMake(){const books=await allBooks(),keys=await tx('kv','readonly',s=>s.getAllKeys()),kv={},blobs=[];
+ for(const k of keys)if(k!=='auth'&&k!=='bauth'&&k!=='lastbk')kv[k]=await kget(k);
+ const enc=v=>{if(v instanceof Blob){blobs.push(v);return{__blob:blobs.length-1,type:v.type,name:v.name||'',size:v.size}}
+  if(Array.isArray(v))return v.map(enc);if(v&&typeof v==='object'&&!(v instanceof Date)){const o={};for(const k in v)o[k]=enc(v[k]);return o}return v};
+ const man={app:'freebook-hub',version:1,date:new Date().toISOString(),books:enc(books),kv:enc(kv),sizes:blobs.map(b=>b.size)},mj=new TextEncoder().encode(JSON.stringify(man)),ln=new Uint8Array(4);
+ new DataView(ln.buffer).setUint32(0,mj.length);
+ return{blob:new Blob([BK_MAGIC,ln,mj,...blobs],{type:'application/octet-stream'}),count:books.length}}
+async function bkRestore(file){const head=await file.slice(0,10).arrayBuffer();
+ if(new TextDecoder().decode(head.slice(0,6))!==BK_MAGIC)throw new Error('This is not a FreeBook Hub backup file.');
+ const ml=new DataView(head).getUint32(6),man=JSON.parse(await file.slice(10,10+ml).text());if(man.app!=='freebook-hub')throw new Error('This is not a FreeBook Hub backup file.');
+ const offs=[];let o=10+ml;for(const z of man.sizes){offs.push(o);o+=z}
+ const dec=v=>{if(v&&typeof v==='object'&&v.__blob!==undefined){const a=offs[v.__blob],sl=file.slice(a,a+v.size,v.type);return v.name?new File([sl],v.name,{type:v.type}):sl}
+  if(Array.isArray(v))return v.map(dec);if(v&&typeof v==='object'){const r={};for(const k in v)r[k]=dec(v[k]);return r}return v};
+ const books=dec(man.books),kv=dec(man.kv);
+ for(const b of books)await putBook(b);
+ for(const k in kv)await kset(k,kv[k]);
+ return{books:books.length,date:man.date}}
+const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc32=u=>{let c=~0;for(let i=0;i<u.length;i++)c=CRC[(c^u[i])&255]^(c>>>8);return(~c)>>>0};
+function zipStore(files){const te=new TextEncoder(),parts=[],cen=[];let off=0;
+ for(const[name,txt]of files){const nm=te.encode(name),d=te.encode(txt),c=crc32(d),lh=new DataView(new ArrayBuffer(30));
+  lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);lh.setUint32(14,c,true);lh.setUint32(18,d.length,true);lh.setUint32(22,d.length,true);lh.setUint16(26,nm.length,true);
+  parts.push(lh,nm,d);
+  const ch=new DataView(new ArrayBuffer(46));ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);ch.setUint32(16,c,true);ch.setUint32(20,d.length,true);ch.setUint32(24,d.length,true);ch.setUint16(28,nm.length,true);ch.setUint32(42,off,true);
+  cen.push(ch,nm);off+=30+nm.length+d.length}
+ const cl=cen.reduce((a,x)=>a+(x.byteLength||x.length),0),e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cl,true);e.setUint32(16,off,true);
+ return new Blob([...parts,...cen,e],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}
+function xlsxMake(sheets){const X=v=>String(v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'),col=i=>String.fromCharCode(65+i);
+ const sh=sheets.map(([nm,rows,w])=>'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><cols>'+w.map((x,i)=>'<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+x+'" customWidth="1"/>').join('')+'</cols><sheetData>'+rows.map((r,ri)=>'<row r="'+(ri+1)+'">'+r.map((v,ci)=>{const ref=col(ci)+(ri+1);return typeof v==='number'?'<c r="'+ref+'" s="'+(ri?0:1)+'"><v>'+v+'</v></c>':'<c r="'+ref+'" t="inlineStr" s="'+(ri===0?1:ri===rows.length-1&&r[0]==='TOTAL'?1:0)+'"><is><t>'+X(v)+'</t></is></c>'}).join('')+'</row>').join('')+'</sheetData></worksheet>');
+ return zipStore([['[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'+sheets.map((_,i)=>'<Override PartName="/xl/worksheets/sheet'+(i+1)+'.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>').join('')+'</Types>'],
+  ['_rels/.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'],
+  ['xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'+sheets.map(([nm],i)=>'<sheet name="'+X(nm)+'" sheetId="'+(i+1)+'" r:id="rId'+(i+1)+'"/>').join('')+'</sheets></workbook>'],
+  ['xl/_rels/workbook.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+sheets.map((_,i)=>'<Relationship Id="rId'+(i+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet'+(i+1)+'.xml"/>').join('')+'<Relationship Id="rId'+(sheets.length+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'],
+  ['xl/styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF1D4ED8"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>'],
+  ...sh.map((x,i)=>['xl/worksheets/sheet'+(i+1)+'.xml',x])])}
+function xlsList(){const bs=sortBy(S.books,'latest'),n=x=>x||0,d=b=>b.added?new Date(b.added).toLocaleDateString():'';
+ const rows=[['No','Title','Author','Category','Status','Views','Reads','Downloads','Added']];bs.forEach((b,i)=>rows.push([i+1,b.title||'',b.author||'',b.category||'',b.status||'',n(b.views),n(b.reads),n(b.downloads),d(b)]));
+ const names=[...new Set([...S.cats,...bs.map(b=>b.category).filter(Boolean)])],sum=(l,k)=>l.reduce((a,x)=>a+n(x[k]),0),sr=[['Subject / Category','Books','Views','Reads','Downloads']];
+ names.forEach(c=>{const l=bs.filter(b=>b.category===c);sr.push([c,l.length,sum(l,'views'),sum(l,'reads'),sum(l,'downloads')])});
+ const un=bs.filter(b=>!b.category);if(un.length)sr.push(['Uncategorized',un.length,sum(un,'views'),sum(un,'reads'),sum(un,'downloads')]);
+ sr.push(['TOTAL',bs.length,sum(bs,'views'),sum(bs,'reads'),sum(bs,'downloads')]);
+ return xlsxMake([['Books',rows,[6,42,26,24,11,9,9,11,13]],['By subject',sr,[30,9,9,9,12]]])}
+function aBackup(){const info=h('p',{class:'msg',role:'status'}),m=h('p',{class:'msg',role:'status'}),rf=h('input',{type:'file',accept:'.fbhbackup'});
+ kget('lastbk').then(v=>{info.textContent=v?'Last backup: '+new Date(v).toLocaleString():'No backup has been made yet. Make one now.'});
+ const exp=async()=>{m.textContent='Preparing backup…';try{const r=await bkMake(),d=new Date().toISOString(),a=h('a',{href:URL.createObjectURL(r.blob),download:'freebook-hub-backup-'+d.slice(0,10)+'.fbhbackup'});document.body.append(a);a.click();a.remove();await kset('lastbk',d);info.textContent='Last backup: '+new Date(d).toLocaleString();m.textContent='Backup saved: '+r.count+' books, '+sz(r.blob.size)+'. Keep the file somewhere safe (another drive, USB or cloud).'}catch(e){m.textContent='Backup failed: '+e.message}};
+ rf.onchange=async()=>{const f=rf.files[0];if(!f)return;
+  if(!await modal('Restore from "'+f.name+'"? Books in the backup are added back (or replaced if they still exist). News, categories, pictures and settings are replaced by the backup copy. Your admin password stays as it is.'))return rf.value='';
+  m.textContent='Restoring…';try{const r=await bkRestore(f);m.textContent='Restored '+r.books+' books from the backup of '+new Date(r.date).toLocaleString()+'. Reloading…';setTimeout(()=>location.reload(),1200)}catch(e){m.textContent='Restore failed: '+e.message}rf.value=''};
+ return h('div',{class:'box'},h('h3',{},'Backup & restore'),h('p',{class:'msg'},'The backup is one file with all books (PDFs and covers), the Recycle Bin, news, categories, pictures, logo and settings. If anything is deleted by mistake, restore it from here. The admin password is not included.'),info,
+  h('div',{class:'act'},h('button',{class:'btn',onclick:exp},'Download backup'),h('button',{class:'btn g',onclick:()=>{const a=h('a',{href:URL.createObjectURL(xlsList()),download:'freebook-hub-books-list-'+new Date().toISOString().slice(0,10)+'.xlsx'});document.body.append(a);a.click();a.remove();m.textContent='Excel list saved (sheet 1: all books, sheet 2: subject-wise totals).'}},'Download Excel list')),
+  h('h3',{style:'margin-top:20px'},'Restore'),h('label',{},'Choose a backup file (.fbhbackup)',rf),m)}
+function aBooks(){return h('div',{class:'box tw'},h('div',{class:'act',style:'margin-bottom:10px'},h('button',{class:'btn',onclick:()=>{S.tab='form';S.edit=null;render()}},'+ Add book'),h('button',{class:'btn g',onclick:()=>{S.tab='upload';render()}},'Upload PDFs')),h('table',{},h('thead',{},h('tr',{},['Book','Status','Views','Reads','Downloads','Actions'].map(x=>h('th',{},x)))),h('tbody',{},S.books.length?sortBy(S.books,'latest').map(b=>h('tr',{},h('td',{},h('b',{},b.title),h('br'),h('span',{class:'mu'},b.author)),h('td',{},b.status+(b.featured?' · featured':'')),h('td',{},b.views||0),h('td',{},b.reads||0),h('td',{},b.downloads||0),h('td',{},h('div',{class:'act'},
+ h('button',{class:'btn s g',onclick:()=>{S.edit=b;S.tab='edit';render()}},'Edit'),h('a',{class:'btn s g',href:'#read/'+b.id},'Read Online'),h('button',{class:'btn s g',onclick:()=>dl(b)},'Download PDF'),h('button',{class:'btn s g',onclick:async()=>{b.status=b.status==='published'?'draft':'published';await putBook(b);save()}},b.status==='published'?'Unpublish':'Publish'),h('button',{class:'btn s g',onclick:async()=>{b.featured=!b.featured;await putBook(b);save()}},b.featured?'Unfeature':'Feature'),h('button',{class:'btn s r',onclick:async()=>{if(await modal('Delete "'+b.title+'"? It moves to the Recycle Bin in Site admin and can be restored.')){await trashBook(b,who());save()}}},'Delete'))))):h('tr',{},h('td',{colspan:6},'No books yet. Use the Add book tab.')))))}
+function aForm(){const b=S.edit||{},F={},auto={cover:null};
+ const f=(k,l,t='text',x={})=>{F[k]=h(k==='description'?'textarea':'input',{type:t,value:b[k]??'',rows:4,...x});if(k==='description')F[k].value=b.description||'';return h('div',{class:k==='description'?'f':''},h('label',{},l,F[k]))};
+ F.category=h('select',{},h('option',{value:''},'Uncategorized'),S.cats.map(c=>h('option',{value:c,selected:c===b.category},c)));F.status=h('select',{},h('option',{value:'draft'},'Draft'),h('option',{value:'published',selected:b.status==='published'},'Published'));
+ F.pdf=h('input',{type:'file',accept:'application/pdf'});F.cover=h('input',{type:'file',accept:'image/jpeg,image/png,image/webp'});
+ const pv=h('div',{class:'cv',style:'width:110px;margin-top:6px'},b.cover?h('img',{src:cover(b),alt:'Cover preview'}):''),showCov=bl=>pv.replaceChildren(bl?h('img',{src:URL.createObjectURL(bl),alt:'Cover preview'}):'');
+ F.cover.onchange=()=>{const x=F.cover.files[0];if(x){auto.cover=null;showCov(x)}};
+ const st=h('p',{class:'msg',role:'status'});
+ const fill=m=>{const set=(k,v)=>{if(v&&!String(F[k].value).trim())F[k].value=v};['title','author','publisher','year','language','isbn','pages','description','license','source'].forEach(k=>set(k,m[k]));if(m.category&&!F.category.value)F.category.value=m.category;const cb=m.cover||m.pdfCover;if(cb&&!F.cover.files[0]&&!b.cover){auto.cover=cb;showCov(cb)}};
+ const run=async()=>{const file=F.pdf.files[0]||b.pdf;if(!file){st.textContent='Choose a PDF first.';return}st.textContent='Reading the PDF and asking Google Books…';const m=await autoMeta(file,(F.pdf.files[0]&&F.pdf.files[0].name)||b.pdfName||'book.pdf',{title:F.title.value.trim(),author:F.author.value.trim()});fill(m);st.textContent=(m.gb?'Details filled from Google Books. ':'')+(m.notes.length?m.notes.join('. ')+'. ':'')+'Please check them before saving.'};
+ F.pdf.onchange=run;
+ const m=h('p',{class:'err'});const form=h('form',{class:'box'},h('div',{class:'fm'},
+  h('div',{class:'f'},h('label',{},'PDF file'+(b.pdf?' (current: '+(b.pdfName||'')+', '+sz(b.size)+')':''),F.pdf),h('div',{class:'act',style:'margin-top:6px'},h('button',{type:'button',class:'btn g s',onclick:run},'Fetch details from Google Books')),st,h('p',{class:'mu'},'Choose the PDF first: title, pages, cover and the other details are filled in automatically. You can change anything.')),
+  f('title','Book title','text',{required:true}),f('author','Author name'),f('publisher','Publisher name'),f('year','Publication year','number'),h('div',{},h('label',{},'Category',F.category)),f('language','Language'),f('isbn','ISBN'),f('pages','Total pages','number'),f('tags','Tags'),f('license','License (public domain, CC BY…)'),f('source','Source link (https://…)'),f('description','Description'),
+  h('div',{},h('label',{},'Original cover image (optional)',F.cover),pv),h('div',{},h('label',{},'Status',F.status)),h('div',{},h('label',{},h('input',{type:'checkbox',checked:!!b.featured,id:'ft'}),' Featured'))),m,h('button',{class:'btn'},b.id?'Save changes':'Add book'));
+ form.onsubmit=async e=>{e.preventDefault();const p=F.pdf.files[0],c=F.cover.files[0];if(!b.id&&!p)return m.textContent='Choose a PDF file.';if(p&&!(p.type==='application/pdf'||/\.pdf$/i.test(p.name)))return m.textContent='The book file must be a PDF.';if(c&&!/^image\/(jpeg|png|webp)$/.test(c.type))return m.textContent='Cover must be JPG, PNG or WebP.';if(c&&c.size>5e6)return m.textContent='Cover is larger than 5 MB.';
+  if(p&&new Uint8Array(await p.slice(0,5).arrayBuffer()).join()!=='37,80,68,70,45')return m.textContent='That file is not a real PDF.';
+  if(F.status.value==='published'&&!(p||b.pdf))return m.textContent='Add a PDF before publishing.';
+  const r={...b,title:F.title.value.trim(),author:F.author.value.trim()||'Unknown author',publisher:F.publisher.value,year:F.year.value,language:F.language.value||'English',isbn:F.isbn.value,pages:F.pages.value,tags:F.tags.value,license:F.license.value,source:F.source.value,description:F.description.value,category:F.category.value,status:F.status.value,featured:$('#ft').checked,downloads:b.downloads||0,views:b.views||0,reads:b.reads||0,added:b.added||Date.now()};
+  if(!b.id)delete r.id;if(p){r.pdf=p;r.pdfName=p.name;r.size=p.size}if(c)r.cover=c;else if(auto.cover)r.cover=auto.cover;try{await putBook(r);S.edit=null;S.tab='books';save()}catch(x){m.textContent='Could not save: '+x.message}};return form}
+function aUpload(){const fi=h('input',{type:'file',accept:'application/pdf',multiple:true}),cs=h('select',{},h('option',{value:''},'Uncategorized'),S.cats.map(c=>h('option',{value:c},c))),ss=h('select',{},h('option',{value:'draft'},'Draft (hidden)'),h('option',{value:'published'},'Published')),lic=h('input',{placeholder:'e.g. Public domain, CC BY 4.0, used with permission'}),m=h('p',{class:'msg',role:'status'}),btn=h('button',{class:'btn'},'Upload all');
+ btn.onclick=async()=>{const fs=[...fi.files];if(!fs.length)return m.textContent='Choose one or more PDF files.';if(!lic.value.trim())return m.textContent='Enter the license, so only authorized books are published.';btn.disabled=true;let ok=0,gb=0;const bad=[];
+  for(const f of fs){m.textContent='Reading '+(ok+bad.length+1)+' of '+fs.length+': '+f.name+'…';try{if(new Uint8Array(await f.slice(0,5).arrayBuffer()).join()!=='37,80,68,70,45')throw 0;const a=await autoMeta(f,f.name);if(a.gb)gb++;
+   await putBook({title:a.title,author:a.author||'Unknown author',publisher:a.publisher||'',year:a.year||'',language:a.language||'English',isbn:a.isbn||'',pages:a.pages||'',tags:'',license:a.license||lic.value.trim(),source:a.source||'',description:a.description||'',category:a.category||cs.value,status:ss.value,featured:false,downloads:0,views:0,reads:0,added:Date.now(),pdf:f,pdfName:f.name,size:f.size,cover:a.cover||a.pdfCover||null});ok++}catch(e){bad.push(f.name)}}
+  await reload();btn.disabled=false;fi.value='';m.textContent=ok+' uploaded ('+gb+' matched on Google Books).'+(bad.length?' Skipped (not a valid PDF or could not save): '+bad.join(', ')+'.':'')+' Check the details in the Edit tab; automatic matches can be wrong.'};
+ return h('div',{class:'box'},h('h3',{},'Upload PDFs'),h('p',{class:'msg'},'Select one or many PDFs. For each one the page count, the embedded title and author, and a cover picture are read from the PDF, and the remaining details come from Google Books (internet needed). Only upload books that are public domain, openly licensed or authorized.'),h('label',{},'PDF files',fi),h('label',{},'Category (used if none is found)',cs),h('label',{},'Status',ss),h('label',{},'License (used if Google Books does not say)',lic),h('br'),btn,m)}
+function aEdit(){if(S.edit)return h('div',{},h('button',{class:'btn g s',style:'margin-bottom:10px',onclick:()=>{S.edit=null;render()}},'← Back to list'),aForm());
+ const q=h('input',{type:'search',placeholder:'Search books to edit'}),l=h('div'),draw=()=>{const t=q.value.toLowerCase();const rows=sortBy(S.books,'latest').filter(b=>(b.title+' '+b.author).toLowerCase().includes(t)).map(b=>h('div',{class:'act',style:'justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--ln)'},h('span',{},b.title+' — '+b.author),h('div',{class:'act'},h('button',{class:'btn s',onclick:()=>{S.edit=b;render()}},'Edit'),h('a',{class:'btn s g',href:'#read/'+b.id},'Read Online'),h('button',{class:'btn s g',onclick:()=>dl(b)},'Download PDF'))));l.replaceChildren(...(rows.length?rows:[h('p',{class:'msg'},'No books found.')]))};q.oninput=draw;draw();return h('div',{class:'box'},h('h3',{},'Edit a book'),q,l)}
+function aDelete(){const sel=new Set();const rows=S.books.length?sortBy(S.books,'latest').map(b=>h('label',{style:'display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--ln);font-weight:400'},h('input',{type:'checkbox',style:'width:auto',onchange:e=>e.target.checked?sel.add(b.id):sel.delete(b.id)}),b.title+' — '+b.author)):[h('p',{class:'msg'},'No books to delete.')];
+ return h('div',{class:'box',id:'delbox'},h('h3',{},'Delete books'),h('p',{class:'msg'},'Tick the books to delete. They are not lost: deleted books are kept in the Recycle Bin of Site admin, where they can be restored.'),h('button',{class:'btn s g',onclick:()=>document.querySelectorAll('#delbox input').forEach(i=>{i.checked=true;i.dispatchEvent(new Event('change'))})},'Select all'),rows,h('br'),h('button',{class:'btn r',onclick:async()=>{if(!sel.size)return modal('Select at least one book.',{ok:true});if(await modal('Move '+sel.size+' book(s) to the Recycle Bin? Site admin can restore them.')){for(const id of sel){const bk=S.books.find(x=>x.id===id);if(bk)await trashBook(bk,who())}save()}}},'Delete selected'))}
+function aCats(){const i=h('input',{placeholder:'New category'});return h('div',{class:'box'},h('div',{class:'act'},i,h('button',{class:'btn',onclick:async()=>{const v=i.value.trim();if(v&&!S.cats.includes(v)){S.cats.push(v);await kset('cats',S.cats);render()}}},'Add')),h('table',{},h('tbody',{},S.cats.map(c=>h('tr',{},h('td',{},c),h('td',{},h('div',{class:'act'},h('button',{class:'btn s g',onclick:async()=>{const n=await modal('Rename category',{input:c});if(n&&n.trim()){S.cats[S.cats.indexOf(c)]=n.trim();for(const b of S.books)if(b.category===c){b.category=n.trim();await putBook(b)}await kset('cats',S.cats);save()}}},'Rename'),h('button',{class:'btn s r',onclick:async()=>{if(await modal('Delete "'+c+'"?')){S.cats=S.cats.filter(x=>x!==c);for(const b of S.books)if(b.category===c){b.category='';await putBook(b)}await kset('cats',S.cats);save()}}},'Delete'))))))))}
+function aTheme(){const t=S.set.theme||{...PRE.light,preset:'light'};const ap=n=>{S.set.theme=n;theme(n);render()};
+ const hs=h('select',{},[['shelf','Book shelf with covers'],['blur','Blurred book covers background'],['image','My own picture'],['plain','Plain colors']].map(([v,l])=>h('option',{value:v,selected:(S.set.hero||'shelf')===v},l)));
+ hs.onchange=async()=>{if(hs.value==='image'&&!S.hero){modal('Upload a picture first (field below).',{ok:true});hs.value=S.set.hero||'shelf';return}S.set.hero=hs.value;await kset('set',S.set);render()};
+ const hf=h('input',{type:'file',accept:'image/jpeg,image/png,image/webp'});hf.onchange=async()=>{const x=hf.files[0];if(!x)return;if(x.size>8e6)return modal('The picture is larger than 8 MB.',{ok:true});await kset('hero',x);S.hero=x;heroUrlRef.u=null;S.set.hero='image';await kset('set',S.set);render()};
+ return h('div',{class:'box'},h('div',{class:'act'},[...Object.keys(PRE)].map(k=>h('button',{class:'btn g s',onclick:()=>ap({...PRE[k],preset:k})},k+' theme'))),
+ h('div',{class:'fm',style:'margin-top:12px'},[['p','Primary / button color'],['bg','Background color'],['hd','Header color'],['tx','Text color']].map(([k,l])=>h('div',{},h('label',{},l,h('input',{type:'color',value:t[k],oninput:e=>{S.set.theme={...(S.set.theme||t),[k]:e.target.value,preset:'custom'};theme(S.set.theme)}}))))),
+ h('h3',{style:'margin-top:18px'},'Front page pictures'),h('label',{},'Front page style',hs),h('label',{},'Your own front page picture (JPG, PNG or WebP)',hf),S.hero&&h('button',{class:'btn s r',style:'margin-top:6px',onclick:async()=>{await kdel('hero');S.hero=null;heroUrlRef.u=null;if(S.set.hero==='image')S.set.hero='shelf';await kset('set',S.set);render()}},'Remove my picture'),
+ h('p',{class:'msg'},'Preview (uses the covers of your published books):'),h('div',{class:'hero2 mini'},heroBg(),h('div',{class:'w',style:'position:relative;z-index:1'},shelfEl(5))),
+ h('div',{class:'act',style:'margin-top:12px'},h('button',{class:'btn',onclick:async()=>{await kset('set',S.set);modal('Theme saved. It now applies to the whole site.',{ok:true})}},'Save theme'),h('button',{class:'btn r',onclick:async()=>{S.set.theme=null;theme(null);await kset('set',S.set);render()}},'Reset theme')),h('p',{class:'msg'},'Colors preview live as you change them.'))}
+function aNews(){let eid=null;const t=h('input',{maxlength:140,required:true}),x=h('textarea',{rows:4,maxlength:800,required:true}),sb=h('button',{class:'btn'},'Upload news'),fl=h('input',{type:'file',accept:'image/*,video/*,application/pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt'}),rm=h('input',{type:'checkbox',style:'width:auto'}),lk=h('input',{type:'url',placeholder:'https://example.com'}),pc=h('input',{type:'file',accept:'image/jpeg,image/png,image/webp,image/gif'}),rmp=h('input',{type:'checkbox',style:'width:auto'});
+ const f=h('form',{class:'box'},h('h3',{},'Upload News'),h('p',{class:'msg'},'News shows as a full-width list on the front page, newest first.'),h('label',{},'Headline',t),h('label',{},'News text',x),h('label',{},'Link (optional)',lk),h('label',{},'Picture (JPG, PNG, WebP; max 8 MB)',pc),h('label',{style:'font-weight:400;display:flex;gap:6px;align-items:center;margin-top:6px'},rmp,'Remove current picture (when editing)'),h('label',{},'Attach a video or file (PDF, Word, Excel; max 30 MB)',fl),h('label',{style:'font-weight:400;display:flex;gap:6px;align-items:center;margin-top:6px'},rm,'Remove current file (when editing)'),h('div',{class:'act',style:'margin-top:10px'},sb));
+ f.onsubmit=async e=>{e.preventDefault();const fo=fl.files[0];if(fo&&fo.size>3e7)return modal('The file is larger than 30 MB.',{ok:true});const po=pc.files[0];if(po&&po.size>8e6)return modal('The picture is larger than 8 MB.',{ok:true});const lv=lk.value.trim();if(lv&&!/^https?:\/\//i.test(lv))return modal('The link must start with http:// or https://',{ok:true});const pj=po?{blob:po,name:po.name,type:po.type,size:po.size}:null,fj=fo?{blob:fo,name:fo.name,type:fo.type,size:fo.size}:null,l=[...S.news];if(eid){const k=l.findIndex(n=>n.id===eid);if(k>-1)l[k]={...l[k],title:t.value.trim(),text:x.value.trim(),link:lv,pic:pj||(rmp.checked?null:l[k].pic),file:fj||(rm.checked?null:l[k].file)}}else l.unshift({id:Date.now(),title:t.value.trim(),text:x.value.trim(),date:new Date().toISOString(),link:lv,pic:pj,file:fj});S.news=l;await kset('news',l);render()};
+ const list=h('div',{class:'box'},h('h3',{},'All news ('+S.news.length+')'),S.news.length?S.news.map(n=>h('div',{style:'padding:10px 0;border-bottom:1px solid var(--ln)'},h('b',{},n.title),h('p',{class:'mu'},new Date(n.date).toLocaleDateString()+' · '+n.text.slice(0,120)),n.pic&&h('p',{class:'mu'},'Picture: '+n.pic.name),n.link&&h('p',{class:'mu'},'Link: '+n.link),n.file&&h('p',{class:'mu'},'Attached file: '+n.file.name+' ('+sz(n.file.size)+')'),h('div',{class:'act'},h('button',{class:'btn s g',onclick:()=>{eid=n.id;t.value=n.title;x.value=n.text;fl.value='';rm.checked=false;pc.value='';rmp.checked=false;lk.value=n.link||'';sb.textContent='Save changes';t.focus()}},'Edit'),h('button',{class:'btn s r',onclick:async()=>{if(await modal('Delete this news?')){S.news=S.news.filter(y=>y.id!==n.id);await kset('news',S.news);render()}}},'Delete')))):h('p',{class:'msg'},'No news yet.'));
+ return h('div',{},f,list)}
+function aReq(){return h('div',{class:'box tw'},h('h3',{},'Book requests'),S.reqs.length?h('table',{},h('thead',{},h('tr',{},['Date','From','Book','Details',''].map(x=>h('th',{},x)))),h('tbody',{},S.reqs.map((r,i)=>h('tr',{},h('td',{},new Date(r.date).toLocaleDateString()),h('td',{},r.name,h('br'),h('a',{href:'mailto:'+r.email},r.email)),h('td',{},r['Book title'],h('br'),h('span',{class:'mu'},r.Author||'')),h('td',{},r.Details||''),h('td',{},h('button',{class:'btn s r',onclick:async()=>{S.reqs.splice(i,1);await kset('reqs',S.reqs);render()}},'Delete')))))):h('p',{class:'msg'},'No requests yet.'))}
+function aSet(){const n=h('input',{value:S.set.name}),t=h('input',{value:S.set.tag}),dp=h('input',{value:S.set.deploy||'Deployed by FreeBook Hub 2026'}),d=h('input',{type:'checkbox',checked:S.set.dl}),r=h('input',{type:'checkbox',checked:S.set.rd}),q=h('input',{type:'checkbox',checked:S.set.prot!==false}),c=h('input',{type:'password'}),np=h('input',{type:'password',minlength:10}),m=h('p',{class:'msg'});
+ return h('div',{},h('div',{class:'box'},h('h3',{},'Website'),h('label',{},'Website name',n),h('label',{},'Tagline',t),h('label',{},'Footer text (shown at the very end of every page)',dp),h('label',{},d,' Allow PDF downloads'),h('label',{},r,' Allow online reading'),h('label',{},q,' Copy protection for visitors (blocks select, copy, right-click, drag, print and view-source shortcuts)'),h('br'),h('button',{class:'btn',onclick:async()=>{S.set={...S.set,name:n.value||'FreeBook Hub',tag:t.value,deploy:dp.value,dl:d.checked,rd:r.checked,prot:q.checked};save()}},'Save settings')),
+ pwBox('site'),
+ h('p',{class:'msg'},'All data is stored in this browser only. Clearing site data deletes the library.'))}
+
+
+const MAIL='Shoaib_butt81@yahoo.com';
+const HUES=i=>'hsl('+((i*57+210)%360)+' 55% 42%)';
+const wait=(p,ms)=>Promise.race([p,new Promise((_,no)=>setTimeout(()=>no(new Error('timeout')),ms))]);
+const LANGS={en:'English',ur:'Urdu',ar:'Arabic',hi:'Hindi',fr:'French',de:'German',es:'Spanish',fa:'Persian',tr:'Turkish'};
+const MAPC=[['Programming',/programming|python|java|coding|web develop/i],['Computer Science',/computer|algorithm|software/i],['Information Technology',/information tech|network|database|cyber/i],['Business',/business|econom|management|finance|marketing/i],['Education',/educat|teaching|learning/i],['Mathematics',/math|algebra|calculus|geometry/i],['Science',/science|physics|chemistry|biology/i],['History',/histor/i],['Islamic Studies',/islam|quran|hadith/i],['Urdu',/urdu/i],['Literature',/literature|poetry|poems|drama/i],['Novels',/fiction|novel/i],['Self Development',/self-help|self help|personal|motivation/i],['Children Books',/juvenile|children/i],['English',/english|grammar/i],['General Knowledge',/./]];
+const norm=t=>String(t).toLowerCase().replace(/[^a-z0-9\u0600-\u06ff ]/g,' ').split(/\s+/).filter(w=>w.length>1);
+const sim=(a,b)=>{const A=norm(a),B=new Set(norm(b));return A.length?A.filter(w=>B.has(w)).length/A.length:0};
+const pdfw=()=>{if(window.pdfjsLib){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';return true}return false};
+// Reads the PDF itself (page count, embedded title/author, first page picture) and then asks Google Books for the rest.
+async function autoMeta(file,name,hint={}){
+ const r={notes:[]};let pt='',pa='';
+ if(pdfw()){try{const d=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;r.pages=d.numPages;const m=await d.getMetadata().catch(()=>null),i=m&&m.info||{};pt=String(i.Title||'').trim();pa=String(i.Author||'').trim();
+  const pg=await d.getPage(1),v=pg.getViewport({scale:1.4}),c=document.createElement('canvas');c.width=v.width;c.height=v.height;await pg.render({canvasContext:c.getContext('2d'),viewport:v}).promise;r.pdfCover=await new Promise(ok=>c.toBlob(ok,'image/jpeg',.85))}catch(e){r.notes.push('The PDF itself could not be read')}}else r.notes.push('PDF reader is not loaded (internet needed)');
+ const fname=String(name||'').replace(/\.pdf$/i,'').replace(/[_-]+/g,' ').trim();
+ r.title=hint.title||((pt&&!/^(untitled|microsoft word.*|document)$/i.test(pt)&&!/\.(docx?|pdf|indd)$/i.test(pt))?pt:fname);
+ r.author=hint.author||pa;
+ try{const q=t=>'https://www.googleapis.com/books/v1/volumes?maxResults=5&q='+encodeURIComponent(t);let it=null;
+  for(const t of ['intitle:'+r.title+(r.author?' inauthor:'+r.author:''),r.title]){const j=await wait(fetch(q(t)).then(x=>x.json()),9000);it=(j.items||[]).find(x=>x.volumeInfo&&sim(r.title,x.volumeInfo.title||'')>=.5);if(it)break}
+  if(it){const v=it.volumeInfo;r.gb=true;r.title=v.title?v.title+(v.subtitle?': '+v.subtitle:''):r.title;r.author=(v.authors||[]).join(', ')||r.author;r.publisher=v.publisher||'';r.year=(v.publishedDate||'').slice(0,4);r.description=v.description||'';r.language=LANGS[v.language]||(v.language||'').toUpperCase();
+   const ids=v.industryIdentifiers||[];r.isbn=(ids.find(x=>x.type==='ISBN_13')||ids[0]||{}).identifier||'';r.gpages=v.pageCount||0;r.source=v.infoLink||'';
+   const cats=(v.categories||[]).join(' ')+' '+r.title;for(const[c,re]of MAPC)if(S.cats.includes(c)&&re.test(cats)){r.category=c;break}
+   if(it.accessInfo&&it.accessInfo.publicDomain)r.license='Public domain (per Google Books)';
+   const im=v.imageLinks&&(v.imageLinks.thumbnail||v.imageLinks.smallThumbnail);if(im){try{const bl=await wait(fetch(im.replace('http://','https://').replace('zoom=1','zoom=2')).then(x=>x.blob()),9000);if(/^image\//.test(bl.type)&&bl.size>2000)r.cover=bl}catch(e){}}
+  }else r.notes.push('No matching book found on Google Books')}catch(e){r.notes.push('Google Books could not be reached (check internet)')}
+ r.pages=r.pages||r.gpages||'';return r}
+const heroUrlRef={u:null};const heroUrl=()=>S.hero?(heroUrlRef.u||(heroUrlRef.u=URL.createObjectURL(S.hero))):null;
+function heroBg(){const m=S.set.hero||'shelf',bs=pub().filter(b=>b.cover);let inner=null;
+ if(m==='blur'&&bs.length)inner=h('div',{class:'coll'},[...Array(24)].map((_,i)=>h('img',{src:cover(bs[i%bs.length]),alt:''})));
+ else if(m==='image'&&heroUrl())inner=h('div',{class:'himg',style:'background-image:url('+heroUrl()+')'});
+ return h('div',{class:'hbg','aria-hidden':'true'},inner)}
+function shelfEl(){const bs=sortBy(pub().filter(b=>b.cover),'latest'),D=(bs.length?bs:S.cats.slice(0,8)).slice(0,12),seq=D.slice();while(seq.length<8)seq.push(...D);
+ const n=seq.length,W=120,R=Math.round((W+46)/(2*Math.tan(Math.PI/n))),T=360/n;
+ const mk=(x,i)=>{const inner=bs.length?h('a',{class:'rbk',href:'#book/'+x.id,title:x.title},h('span',{class:'cv'},h('img',{src:cover(x),alt:'Cover of '+x.title}))):h('span',{class:'rbk','aria-hidden':'true'},h('span',{class:'cv',style:'background:'+HUES(i%8)},h('span',{},x)));return h('div',{class:'rw',style:'--a:'+(i*T).toFixed(3)+'deg'},inner)};
+ return h('div',{class:'rwrap'},h('div',{class:'fresh',role:'heading','aria-level':'2','aria-label':'Fresh Arrival Books'},h('div',{class:'frk','aria-hidden':'true'},h('a',{href:'#books///latest',tabindex:'-1'},'Fresh Arrival Books'))),h('div',{class:'ring',role:'region','aria-label':'Fresh arrival books moving in a circle; pauses when you hover over them'},h('div',{class:'rz'},h('div',{class:'rg',style:'--R:'+R+'px;--d:'+n*3+'s'},seq.map(mk)))))}
+function ringStats(){const T=totals(),c=(k,l,cl)=>{const b=h('b',{'data-k':k},T[k].toLocaleString());countUp(b,T[k]);return h('div',{class:'st bt '+cl},b,h('span',{},l))};
+ return h('div',{class:'rst','aria-label':'Library totals'},c('books','Total books','a'),c('downloads','Total downloads','d'),c('cats','Categories/Program','c'),c('authors','Authors','b2'))}
+const searchBox=()=>{const i=h('input',{placeholder:'Search title, author, ISBN',type:'search'});i.addEventListener('keydown',e=>e.key==='Enter'&&go('books/'+encodeURIComponent(i.value)));return h('div',{class:'sh'},i,h('button',{class:'btn',onclick:()=>go('books/'+encodeURIComponent(i.value))},'Search'))};
+const catTiles=()=>h('section',{class:'w sec'},h('h2',{},'Browse by category'),h('div',{class:'ct'},S.cats.map((c,i)=>h('a',{href:'#books/%20/'+encodeURIComponent(c),class:'tile',style:'--c:'+HUES(i)},h('b',{},c),h('span',{},pub().filter(b=>b.category===c).length+' books')))));
+// Sends the request to the owner's email through FormSubmit; if that fails the visitor's own email app opens instead.
+function reqForm(){const n=h('input',{required:true,maxlength:80}),e=h('input',{type:'email',required:true,maxlength:120}),t=h('input',{required:true,maxlength:200}),a=h('input',{maxlength:120}),d=h('textarea',{rows:3,maxlength:1000}),m=h('p',{class:'msg',role:'status'}),b=h('button',{class:'btn'},'Send request');
+ const f=h('form',{class:'rq'},h('label',{},'Your name',n),h('label',{},'Your email',e),h('label',{},'Book title',t),h('label',{},'Author (if you know)',a),h('label',{style:'grid-column:1/-1'},'Details (language, edition, link)',d),h('div',{style:'grid-column:1/-1'},b,m));
+ f.onsubmit=async ev=>{ev.preventDefault();b.disabled=true;m.className='msg';m.textContent='Sending…';
+  const body={name:n.value.trim(),email:e.value.trim(),'Book title':t.value.trim(),Author:a.value.trim(),Details:d.value.trim(),_replyto:e.value.trim(),_subject:'Book request: '+t.value.trim(),_template:'table',_captcha:'false'};
+  try{const l=(await kget('reqs'))||[];l.unshift({date:new Date().toISOString(),name:body.name,email:body.email,'Book title':body['Book title'],Author:body.Author,Details:body.Details});await kset('reqs',l);S.reqs=l}catch(x){}
+  try{const r=await wait(fetch('https://formsubmit.co/ajax/'+MAIL,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body)}),12000),j=await r.json();if(!r.ok||String(j.success)!=='true')throw new Error(j.message||'not sent');m.className='msg ok';m.textContent='Thank you! Your request was sent.';f.reset()}
+  catch(x){m.textContent='Could not send it automatically. Your email app is opening so you can send it yourself.';location.href='mailto:'+MAIL+'?subject='+encodeURIComponent(body._subject)+'&body='+encodeURIComponent('Name: '+body.name+'\nEmail: '+body.email+'\nBook: '+body['Book title']+'\nAuthor: '+body.Author+'\n\n'+body.Details)}
+  b.disabled=false};return f}
+
+
+const nUrl=new Map();
+function nfile(n){const f=n.file,k=n.id+':'+f.size,u=nUrl.get(k)||(nUrl.set(k,URL.createObjectURL(f.blob)),nUrl.get(k));
+ if(/^image\//.test(f.type))return h('a',{href:u,target:'_blank',rel:'noopener'},h('img',{src:u,alt:f.name,style:'width:100%;max-height:140px;object-fit:contain;border-radius:6px;margin-top:8px;display:block;background:var(--sf)'}));
+ if(/^video\//.test(f.type))return h('video',{src:u,controls:true,preload:'metadata',style:'width:100%;max-height:140px;border-radius:6px;margin-top:8px;display:block;background:#000'});
+ return h('div',{class:'act',style:'margin-top:12px'},/pdf/.test(f.type)&&h('a',{class:'btn s',href:u,target:'_blank',rel:'noopener'},'Open file'),h('a',{class:'btn s g',href:u,download:f.name},'Download: '+f.name+' ('+sz(f.size)+')'))}
+function npic(n){const f=n.pic,k=n.id+':p'+f.size,u=nUrl.get(k)||(nUrl.set(k,URL.createObjectURL(f.blob)),nUrl.get(k));return h('img',{src:u,alt:n.title,style:'width:100%;max-height:140px;object-fit:contain;border-radius:6px;margin-top:8px;display:block;background:var(--sf)'})}
+function newsItem(n){return h('div',{class:'ni'},h('time',{},new Date(n.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})),h('b',{},n.title),n.text&&h('p',{},n.text),n.pic&&npic(n),n.link&&h('div',{class:'act',style:'margin-top:10px'},h('a',{class:'btn s',href:n.link,target:'_blank',rel:'noopener noreferrer'},'Open link')),n.file&&nfile(n))}
+function newsEl(){const box=h('div',{class:'nw nl',role:'region','aria-label':'FMC & FCN News'}),L=S.news;
+ const cnt=h('span',{class:'cnt'}),head=h('div',{class:'nh'},h('span',{},'📰 Latest news & announcements'),cnt);
+ if(!L.length){box.append(head,h('div',{class:'nb'},h('p',{class:'msg',style:'margin:0'},'No news yet. Check back soon.')));cnt.textContent='0';return box}
+ let i=0,paused=false;const view=h('div',{class:'nb'}),dots=L.length>1&&L.length<=10?L.map((_,k)=>h('button',{type:'button',class:'dt','aria-label':'News '+(k+1),onclick:()=>show(k)})):[];
+ const show=k=>{i=(k+L.length)%L.length;view.replaceChildren(newsItem(L[i]));cnt.textContent=(i+1)+' / '+L.length;dots.forEach((d,j)=>d.setAttribute('aria-current',j===i))};
+ box.append(head,view);
+ if(L.length>1){box.append(h('div',{class:'nf'},h('button',{class:'btn s g',type:'button',onclick:()=>show(i-1)},'‹ Previous'),h('div',{class:'dts'},...dots),h('button',{class:'btn s g',type:'button',onclick:()=>show(i+1)},'Next ›')));
+  box.onmouseenter=box.onfocusin=()=>paused=true;box.onmouseleave=box.onfocusout=()=>paused=false;
+  window.__nt=setInterval(()=>{const v=view.querySelector('video');if(!paused&&!(v&&!v.paused))show(i+1)},10000)}
+ show(0);return box}
+
+async function track(k){try{const d=new Date().toLocaleDateString('en-CA');S.daily=S.daily||{};const r=S.daily[d]||(S.daily[d]={v:0,r:0,d:0});r[k]=(r[k]||0)+1;await kset('daily',S.daily)}catch(e){}}
+function statsEl(){const p=pub(),t=k=>p.reduce((a,b)=>a+(b[k]||0),0),dd=(S.daily||{})[new Date().toLocaleDateString('en-CA')]||{},
+ tile=(c,v,l)=>h('div',{class:'bt '+c},h('b',{},Number(v||0).toLocaleString()),h('span',{},l));
+ return h('aside',{class:'sp','aria-label':'Library activity'},h('div',{class:'sph'},'📊 Library activity'),
+  h('div',{class:'spl'},'All time'),h('div',{class:'spg'},tile('a',t('views'),'Views'),tile('d',totals().downloads,'Downloads'),tile('b2',t('reads'),'Reads')),
+  h('div',{class:'spl'},'Today ('+new Date().toLocaleDateString(undefined,{day:'numeric',month:'short'})+')'),h('div',{class:'spg'},tile('a',dd.v,'Views'),tile('d',dd.d,'Downloads'),tile('b2',dd.r,'Reads')),visEl())}
+function latestEl(){return pub().length?h('div',{class:'mq',role:'region','aria-label':'Fresh Arrival Books'},h('div',{class:'mqk'},h('a',{class:'lbt',href:'#books///latest'},'Fresh Arrival Books'))):null}
+const VIS={total:0,today:0,live:1};
+async function visInit(){try{const v=(await kget('vis'))||{total:0,days:{}},d=new Date().toLocaleDateString('en-CA');let first=true;
+ try{first=!sessionStorage.getItem('fbhv');sessionStorage.setItem('fbhv','1')}catch(e){}
+ if(first&&!S.admin){v.total=(v.total||0)+1;v.days=v.days||{};v.days[d]=(v.days[d]||0)+1;await kset('vis',v)}
+ VIS.total=v.total||0;VIS.today=(v.days||{})[d]||0}catch(e){}
+ try{const id=Math.random(),seen={[id]:Date.now()},bc=new BroadcastChannel('fbh-live');bc.onmessage=e=>{seen[e.data]=Date.now()};
+  const tick=()=>{bc.postMessage(id);seen[id]=Date.now();const t=Date.now();let c=0;for(const k in seen){if(t-seen[k]<15000)c++;else delete seen[k]}VIS.live=c;const el=document.getElementById('vlive');if(el)el.textContent=c};
+  tick();setInterval(tick,5000)}catch(e){}}
+function visEl(){const r=(c,ic,l,v,id)=>h('li',{class:c},h('i',{},ic),h('span',{},l),h('b',{id},String(v)));
+ return h('div',{class:'vwrap'},h('div',{class:'vh'},'Visitors'),h('ul',{class:'vl'},r('t','👁','Total Visitors',VIS.total.toLocaleString()),r('d','📅','Today Visits',VIS.today.toLocaleString()),(()=>{const x=r('l','','Live Visitors',VIS.live,'vlive');x.firstChild.replaceWith(h('em',{class:'pulse',style:'margin:0 4px'}));return x})()))}
+let rid=0;
+const QRD={thesis:'1111111000101100101011000000101111111/1000001010100001011000000011001000001/1011101000001011100101101011001011101/1011101011101111000000110110001011101/1011101001000010100011000000101011101/1000001011011011110010101011101000001/1111111010101010101010101010101111111/0000000001110001100001011010000000000/1111101111010101000000000111110101010/1100110110101000101011111010100101110/0000001101000101101011101011011001101/1110100100001010100011001001111111010/0001111000001110000011111111001011101/0011000001100000000100010010100100110/1101001101111111111001000101110110111/1001100100110011100101011011000101001/0010101000110111110101101101011011101/0110110001001101110111110100100100110/0011001110000001101001100111101110111/0011110001001010000001001011110110001/1001011100101111100110000111011011111/1110100001100000100111110000100100010/1100001001011011000010101011010111011/1111100101010001100001011000010110001/1011111000010101110111100101111011111/1011000110001110010101011100100100110/1011001000100011001000000111010110111/1001100110101011100011101011011100001/1101111110001100010011110101111111100/0000000011000010100100000010100011000/1111111010011001011010000000101010111/1000001001010001001111111010100010000/1011101011010001100000011111111110110/1011101011001101111011110000101011011/1011101010100111011011001101000100111/1000001011001101001111111010110011001/1111111010001010100101111110010111111',aucl:'1111111010000101001111111/1000001010011110001000001/1011101011001010001011101/1011101011101100101011101/1011101001101101001011101/1000001011100110001000001/1111111010101010101111111/0000000000110010000000000/1100111000101010100101111/0101100100000101010111010/1010101011100011010101100/1010000011001001100000110/1111011110011011101001111/1010010110101001000110010/0000101110111101101101100/0011010010101000011001110/1101101100011011111111100/0000000010011000100010100/1111111001010000101011000/1000001010110001100011111/1011101010110010111110100/1011101001011100001001111/1011101001010001001000010/1000001011010000000111110/1111111010110010000000111',hec:'11111110101010101011101111111/10000010011110000100101000001/10111010111001111010001011101/10111010111011111100101011101/10111010100111111111001011101/10000010001100100101001000001/11111110101010101010101111111/00000000001010100101100000000/11110010101110111111010011101/10110100101011001101111110001/10101111111110101100001100110/10100000011001101011011101001/10111011011011010111000001100/10111000100111111001001000011/10000011101100100111011011111/11100101000100001010101100010/01011011011011010011110110010/01001101111000011000100000110/10000110101000011000011101100/00110001100100110110010000100/11001010011000111110111111100/00000000110000101010100011111/11111110000000000111101011010/10000010010111001000100010001/10111010010111111100111111101/10111010101101111111110011101/10111010110001101011010100101/10000010111000101000100101010/11111110101001010001100001010',opac:'1111111010000101001111111/1000001010011110001000001/1011101011001010001011101/1011101011101100101011101/1011101001101101001011101/1000001011100110001000001/1111111010101010101111111/0000000000110010000000000/1100111000101010100101111/1000000110000101010111010/1011111101100011010101100/1000010011001001100000110/0001111010011011101001111/1010110101101001000110010/0011001010011101101101100/0011010100001000011001110/1100001010111011111111100/0000000010011100100010100/1111111000011100101011000/1000001010100001100011111/1011101011000010111110100/1011101000111100001001111/1011101001110001001000010/1000001010010000000111110/1111111010110010000000111'};
+const QRS=[{k:'aucl',t:'AUCL Digital Library',s:'e-Books',u:'http://111.68.96.114:8088/',c:'#1d4ed8'},{k:'hec',t:'HEC Digital Library',s:'e-Resources',u:'http://www.digitallibrary.edu.pk/airuni.html',c:'#1d4ed8'},{k:'opac',t:'OPAC',s:'Printed books',u:'http://111.68.96.114:2083/',c:'#1d4ed8'},{k:'thesis',t:'Thesis & Projects',s:'Full list',u:'https://docs.google.com/spreadsheets/d/1cjkY2qch2YCf4HT6CK1OG49xj5ABCWASyUyrJXPl4sU/edit#gid=0',c:'#1d4ed8'}];
+const qrPal=['#1d4ed8'];
+const qrList=()=>S.qrs||QRS.map(q=>({id:q.k,t:q.t,s:q.s,u:q.u,c:q.c,gen:q.k,img:null}));
+const qrImgs=new Map(),qrImg=q=>{const k=q.id+':'+q.img.size;if(!qrImgs.has(k))qrImgs.set(k,URL.createObjectURL(q.img));return qrImgs.get(k)};
+const okUrl=u=>/^https?:\/\/\S+$/i.test(u||'');
+function qrSvg(k,px){const rows=QRD[k].split('/'),n=rows.length,ns='http://www.w3.org/2000/svg';let d='';rows.forEach((r,y)=>{for(let x=0;x<n;x++)if(r[x]==='1')d+='M'+x+' '+y+'h1v1h-1z'});
+ const sv=document.createElementNS(ns,'svg'),bg=document.createElementNS(ns,'rect'),pa=document.createElementNS(ns,'path');sv.setAttribute('viewBox','-4 -4 '+(n+8)+' '+(n+8));sv.setAttribute('width',px);sv.setAttribute('height',px);sv.setAttribute('aria-hidden','true');
+ bg.setAttribute('x',-4);bg.setAttribute('y',-4);bg.setAttribute('width',n+8);bg.setAttribute('height',n+8);bg.setAttribute('fill','#fff');pa.setAttribute('d',d);pa.setAttribute('fill','#1d4ed8');pa.setAttribute('shape-rendering','crispEdges');sv.append(bg,pa);return sv}
+const qrArt=(q,px)=>q.img?h('img',{src:qrImg(q),alt:'',style:'display:block;width:'+px+'px;max-width:70vw;height:auto;background:#fff'}):(q.gen&&QRD[q.gen]?qrSvg(q.gen,px):h('span',{class:'mu'},'No QR'));
+function zoomQr(q){const prev=document.activeElement,close=()=>{d.remove();document.removeEventListener('keydown',key);prev&&prev.focus&&prev.focus()},key=e=>{if(e.key==='Escape')close()};
+ const cb=h('button',{class:'btn',onclick:close},'Close');
+ const d=h('div',{class:'zoom',onclick:e=>{if(e.target===d)close()}},h('div',{class:'zbox',role:'dialog','aria-modal':'true','aria-label':q.t+' QR code',style:'--c:'+q.c},h('h3',{},q.t),h('p',{class:'mu'},(q.s?q.s+' · ':'')+'scan with your phone camera'),h('div',{class:'zq'},qrArt(q,360)),h('div',{class:'act',style:'justify-content:center;margin-top:12px'},okUrl(q.u)&&h('a',{class:'btn',href:q.u,target:'_blank',rel:'noopener noreferrer'},'Open website'),cb),h('p',{class:'mu',style:'word-break:break-all;margin-top:8px'},q.u||'')));
+ document.body.append(d);document.addEventListener('keydown',key);cb.focus()}
+function qrPanel(){const L=qrList();if(!L.length)return null;
+ return h('aside',{class:'qrp','aria-label':'QR codes'},h('div',{class:'qb'},h('b',{},'QR Codes'),h('span',{},'Scan Or Click')),
+  h('div',{class:'qg'},L.map((q,i)=>h('div',{class:'qi'+(i===L.length-1&&L.length%2===1?' mid':''),style:'--c:'+q.c},
+   h('button',{type:'button',class:'qbtn','aria-label':'Zoom the QR code of '+q.t,title:'Click to zoom',onclick:()=>zoomQr(q)},qrArt(q,84)),
+   h('a',{href:okUrl(q.u)?q.u:null,target:'_blank',rel:'noopener noreferrer'},q.t),h('span',{},q.s)))))}
+function aQr(){const L=qrList().map(q=>({...q})),box=h('div',{class:'box'}),m=h('p',{class:'msg',role:'status'});
+ const say=(t,bad)=>{m.className='msg'+(bad?' err':'');m.textContent=t};
+ const imgOk=f=>{if(!f)return false;if(!/^image\/(png|jpeg|webp|gif)$/.test(f.type)){say('Choose a PNG, JPG, WebP or GIF picture.',1);return false}if(f.size>3e6){say('The picture is larger than 3 MB.',1);return false}return true};
+ const nt=h('input',{maxlength:80}),ns=h('input',{maxlength:60}),nl=h('input',{type:'url',placeholder:'https://'}),nf=h('input',{type:'file',accept:'image/png,image/jpeg,image/webp,image/gif'});
+ const draw=()=>box.replaceChildren(h('h3',{},'QR Codes'),h('p',{class:'msg'},'The first two QR codes face each other and a third one sits in the center below them. Upload your own QR picture for any of them or keep the built-in one. Visitors click a QR code to zoom it.'),
+  ...L.map((q,i)=>{const ti=h('input',{value:q.t,maxlength:80}),su=h('input',{value:q.s||'',maxlength:60}),li=h('input',{type:'url',value:q.u||'',placeholder:'https://'}),fi=h('input',{type:'file',accept:'image/png,image/jpeg,image/webp,image/gif'});
+   ti.oninput=()=>{q.t=ti.value};su.oninput=()=>{q.s=su.value};li.oninput=()=>{q.u=li.value};fi.onchange=()=>{const f=fi.files[0];if(imgOk(f)){q.img=f;draw()}};
+   return h('div',{class:'box',style:'background:var(--bg)'},h('div',{class:'fm'},h('div',{},h('label',{},'Title',ti)),h('div',{},h('label',{},'Small text (for example e-Books)',su)),h('div',{class:'f'},h('label',{},'Link (opens when visitors click the title)',li)),
+    h('div',{},h('label',{},'QR code picture',fi),h('p',{class:'mu'},q.img?'Using your uploaded picture.':q.gen?'Using the built-in QR code.':'Upload a picture.')),
+    h('div',{style:'background:#fff;padding:6px;border-radius:8px;width:max-content;line-height:0;border:2px solid '+q.c},qrArt(q,110))),
+   h('div',{class:'act',style:'margin-top:10px'},q.img&&q.gen&&h('button',{type:'button',class:'btn s g',onclick:()=>{q.img=null;draw()}},'Use built-in QR'),i>0&&h('button',{type:'button',class:'btn s g',onclick:()=>{L.splice(i-1,0,L.splice(i,1)[0]);draw()}},'Move up'),i<L.length-1&&h('button',{type:'button',class:'btn s g',onclick:()=>{L.splice(i+1,0,L.splice(i,1)[0]);draw()}},'Move down'),h('button',{type:'button',class:'btn s r',onclick:async()=>{if(await modal('Remove "'+q.t+'"?')){L.splice(i,1);draw()}}},'Remove')))}),
+  h('div',{class:'box',style:'background:var(--bg)'},h('h3',{},'Add another QR code'),h('div',{class:'fm'},h('div',{},h('label',{},'Title',nt)),h('div',{},h('label',{},'Small text',ns)),h('div',{class:'f'},h('label',{},'Link',nl)),h('div',{class:'f'},h('label',{},'QR code picture (required)',nf))),
+   h('button',{type:'button',class:'btn g',style:'margin-top:10px',onclick:()=>{if(!nt.value.trim())return say('Enter a title.',1);if(!okUrl(nl.value.trim()))return say('Enter a link that starts with http:// or https://',1);if(!imgOk(nf.files[0]))return;L.push({id:'q'+Date.now(),t:nt.value.trim(),s:ns.value.trim(),u:nl.value.trim(),c:qrPal[L.length%qrPal.length],gen:null,img:nf.files[0]});nt.value=ns.value=nl.value=nf.value='';say('Added. Press "Save QR codes" to publish it.');draw()}},'Add to list')));
+ draw();
+ const sv=h('button',{class:'btn',onclick:async()=>{for(const q of L){if(!String(q.t).trim())return say('Every QR code needs a title.',1);if(q.u&&!okUrl(q.u))return say('Links must start with http:// or https://',1);if(!q.img&&!q.gen)return say('"'+q.t+'" needs a QR picture.',1)}
+  await kset('qrs',L);S.qrs=L;say('Saved. Visitors now see these QR codes on the front page.')}},'Save QR codes'),
+  rs=h('button',{class:'btn r',onclick:async()=>{if(await modal('Go back to the three built-in QR codes? Your uploaded pictures will be removed.')){await kdel('qrs');S.qrs=null;render()}}},'Reset to built-in');
+ return h('div',{},box,h('div',{class:'act'},sv,rs),m)}
+
+function qrSync(){const q=document.querySelector('.qrp'),n=document.querySelector('.nwrap');if(window._qro)window._qro.disconnect();if(!q||!n)return;
+ const fit=()=>{if(!document.body.contains(q)){window._qro&&window._qro.disconnect();return}
+  if(!matchMedia('(min-width:1001px)').matches){q.style.height='';q.style.removeProperty('--qs');return}
+  const H=Math.round(n.getBoundingClientRect().height),rows=Math.ceil(q.querySelectorAll('.qi').length/2),b=q.querySelector('.qb').offsetHeight;
+  q.style.height=H+'px';q.style.setProperty('--qs',Math.max(38,Math.min(54,Math.floor((H-b)/rows-56)))+'px')};
+ window._qro=new ResizeObserver(fit);window._qro.observe(n);fit()}
+
+async function render(){clearInterval(window.__nt);document.body.classList.toggle('prot',protOn());const id=++rid,[v,...a]=route.split('/');document.body.classList.toggle('hb',v!=='read');if(v==='read'&&!S.admin&&!S.set.rd){}
+ let out;try{out=await(views[v]||views.home)(v==='books'?a:a)}catch(e){out=h('p',{class:'w err'},'Something went wrong: '+e.message)}if(id!==rid)return;
+ const app=$('#app');app.replaceChildren(...(v==='read'?[out]:[head(),...[].concat(out).filter(Boolean),foot()]));scrollTo(0,0);qrSync()}
+const protOn=()=>S.set.prot!==false&&!S.admin&&!S.badmin,isEd=e=>{const t=e.target&&e.target.nodeType===3?e.target.parentElement:e.target;return !!t&&(/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)||t.isContentEditable)};
+['contextmenu','copy','cut','dragstart','selectstart'].forEach(t=>document.addEventListener(t,e=>{if(protOn()&&!isEd(e))e.preventDefault()},true));
+document.addEventListener('keydown',e=>{if(!protOn())return;const k=String(e.key).toLowerCase(),m=e.ctrlKey||e.metaKey;if(k==='f12'||(m&&['u','s','p'].includes(k))||(m&&(e.shiftKey||e.altKey)&&['i','j','c'].includes(k)))e.preventDefault()},true);
+addEventListener('hashchange',()=>{route=location.hash.slice(1)||'home';render()});
+
+function clkTick(){const t=document.getElementById('clkT'),d=document.getElementById('clkD');if(!t||!d)return;const n=new Date();
+ t.textContent=n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
+ d.textContent=n.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short',year:'numeric'})}
+setInterval(clkTick,1000);new MutationObserver(clkTick).observe(document.getElementById('app')||document.body,{childList:true});
+(async()=>{try{await reload();S.A={site:(await kget('auth'))||null,books:(await kget('bauth'))||null};const s=await kget('set');if(s)S.set={...S.set,...s};S.cats=(await kget('cats'))||CATS;S.hero=(await kget('hero'))||null;S.banner=(await kget('banner'))||null;S.logo=(await kget('logo'))||null;S.daily=(await kget('daily'))||{};S.reqs=(await kget('reqs'))||[];S.news=(await kget('news'))||[];S.dlTotal=(await kget('dltot'))||0;S.qrs=(await kget('qrs'))||null;if(S.qrs&&!(S.set.qrAdded&&S.set.qrAdded.thesis)){S.qrs=[...S.qrs,{id:'thesis',t:QRS[3].t,s:QRS[3].s,u:QRS[3].u,c:QRS[3].c,gen:'thesis',img:null}];await kset('qrs',S.qrs);S.set={...S.set,qrAdded:{...(S.set.qrAdded||{}),thesis:1}};await kset('set',S.set)}try{navigator.storage.persist()}catch(e){}await visInit();theme(S.set.theme)}catch(e){document.body.prepend(h('p',{class:'err',style:'padding:12px'},'Browser storage is not available, so books cannot be saved here: '+e.message))}render()})();
+</script>
+</body>
+</html>
